@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
 import { extractContent } from "../extractor";
-import { processContentWorkflow } from "../ai/pipeline";
+import { processTextAndSave } from "./process-text";
 
 /**
  * Extract content, run AI workflow,
@@ -46,97 +46,9 @@ export async function processAndSaveResource(
         );
 
         // -------------------------------------------------------------------------
-        // AI Pipeline
+        // AI Pipeline & Persistence
         // -------------------------------------------------------------------------
-        const result = await processContentWorkflow(text);
-
-        onProgress?.(
-            "save",
-            "💾 Đang lưu vào cơ sở dữ liệu..."
-        );
-
-        // -------------------------------------------------------------------------
-        // Save everything atomically
-        // -------------------------------------------------------------------------
-        await prisma.$transaction(async (tx) => {
-            // -----------------------------------------------------------------------
-            // Update AI summary
-            // -----------------------------------------------------------------------
-            await tx.resource.update({
-                where: {
-                    id: resourceId,
-                },
-                data: {
-                    summary: result.summary?.summary ?? null,
-                    difficulty: result.summary?.difficulty ?? null,
-                    estimatedReadingTime:
-                        result.summary?.estimatedReadingTime ?? null,
-
-                    ...(result.summary?.tags?.length
-                        ? {
-                            tags: {
-                                connectOrCreate: result.summary.tags.map((tag) => ({
-                                    where: {
-                                        name: tag,
-                                    },
-                                    create: {
-                                        name: tag,
-                                    },
-                                })),
-                            },
-                        }
-                        : {}),
-                },
-            });
-
-
-            // -----------------------------------------------------------------------
-            // Flashcards
-            // -----------------------------------------------------------------------
-            if (result.flashcards.length) {
-                await tx.flashcard.createMany({
-                    data: result.flashcards.map((card) => ({
-                        resourceId,
-
-                        question: card.question,
-                        answer: card.answer,
-                        hint: card.hint ?? null,
-                    })),
-                });
-            }
-
-            // -----------------------------------------------------------------------
-            // Quiz
-            // -----------------------------------------------------------------------
-            if (result.quiz.length) {
-                await tx.quizQuestion.createMany({
-                    data: result.quiz.map((quiz) => ({
-                        resourceId,
-
-                        question: quiz.question,
-
-                        options: JSON.stringify(quiz.options),
-
-                        correctOptionIndex:
-                            quiz.correctOptionIndex,
-
-                        explanation: quiz.explanation,
-                    })),
-                });
-            }
-
-            // -----------------------------------------------------------------------
-            // Completed
-            // -----------------------------------------------------------------------
-            await tx.resource.update({
-                where: {
-                    id: resourceId,
-                },
-                data: {
-                    status: "COMPLETED",
-                },
-            });
-        });
+        await processTextAndSave(resourceId, text);
 
         onProgress?.(
             "done",

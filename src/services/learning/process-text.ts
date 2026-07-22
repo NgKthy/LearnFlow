@@ -21,74 +21,100 @@ export async function processTextAndSave(
             },
         });
 
-        // 2. Call AI pipeline workflow (runs summarizer, flashcards, quiz in parallel)
-        const result = await processContentWorkflow(text);
+        // 2. Call AI pipeline workflow inside a try-catch block with timers
+        let result;
+        console.time("AI Pipeline");
+        try {
+            console.log(`[AI Pipeline] Starting generation for resource ${resourceId}`);
+            result = await processContentWorkflow(text);
+            console.timeEnd("AI Pipeline");
+        } catch (aiError) {
+            console.timeEnd("AI Pipeline");
+            console.error(`[AI Pipeline] Generation failed for resource ${resourceId}:`, aiError);
+            throw aiError;
+        }
 
         // 3. Persist everything to PostgreSQL inside an interactive transaction
-        await prisma.$transaction(async (tx) => {
-            // Update resource metadata & tags
-            await tx.resource.update({
-                where: {
-                    id: resourceId,
-                },
-                data: {
-                    summary: result.summary?.summary ?? null,
-                    difficulty: result.summary?.difficulty ?? null,
-                    estimatedReadingTime:
-                        result.summary?.estimatedReadingTime ?? null,
-
-                    ...(result.summary?.tags?.length
-                        ? {
-                            tags: {
-                                connectOrCreate: result.summary.tags.map((tag) => ({
-                                    where: {
-                                        name: tag,
-                                    },
-                                    create: {
-                                        name: tag,
-                                    },
-                                })),
-                            },
-                        }
-                        : {}),
-                },
-            });
-
-            // Create Flashcards if any
-            if (result.flashcards.length) {
-                await tx.flashcard.createMany({
-                    data: result.flashcards.map((card) => ({
-                        resourceId,
-                        question: card.question,
-                        answer: card.answer,
-                        hint: card.hint ?? null,
-                    })),
+        try {
+            await prisma.$transaction(async (tx) => {
+                // Update resource content, status, metadata & tags
+                await tx.resource.update({
+                    where: {
+                        id: resourceId,
+                    },
+                    data: {
+                        content: text,
+                        summary: result.summary?.summary ?? null,
+                        difficulty: result.summary?.difficulty ?? null,
+                        estimatedReadingTime:
+                            result.summary?.estimatedReadingTime ?? null,
+                        status: "COMPLETED",
+                        ...(result.summary?.tags?.length
+                            ? {
+                                tags: {
+                                    connectOrCreate: Array.from(
+                                        new Set(
+                                            result.summary.tags
+                                                .filter((tag): tag is string => typeof tag === "string" && tag.trim() !== "")
+                                                .map((tag) => tag.trim().toLowerCase())
+                                        )
+                                    ).map((tag) => ({
+                                        where: {
+                                            name: tag,
+                                        },
+                                        create: {
+                                            name: tag,
+                                        },
+                                    })),
+                                },
+                            }
+                            : {}),
+                    },
                 });
-            }
 
-            // Create Quiz Questions if any
-            if (result.quiz.length) {
-                await tx.quizQuestion.createMany({
-                    data: result.quiz.map((quiz) => ({
+                // Delete existing Flashcards (supporting Retry mechanism)
+                await tx.flashcard.deleteMany({
+                    where: {
                         resourceId,
-                        question: quiz.question,
-                        options: JSON.stringify(quiz.options),
-                        correctOptionIndex: quiz.correctOptionIndex,
-                        explanation: quiz.explanation,
-                    })),
+                    },
                 });
-            }
 
-            // Mark resource status as completed
-            await tx.resource.update({
-                where: {
-                    id: resourceId,
-                },
-                data: {
-                    status: "COMPLETED",
-                },
+                // Create Flashcards if any
+                if (result.flashcards.length) {
+                    await tx.flashcard.createMany({
+                        data: result.flashcards.map((card) => ({
+                            resourceId,
+                            question: card.question,
+                            answer: card.answer,
+                            hint: card.hint ?? null,
+                        })),
+                    });
+                }
+
+                // Delete existing Quiz Questions (supporting Retry mechanism)
+                await tx.quizQuestion.deleteMany({
+                    where: {
+                        resourceId,
+                    },
+                });
+
+                // Create Quiz Questions if any
+                if (result.quiz.length) {
+                    await tx.quizQuestion.createMany({
+                        data: result.quiz.map((quiz) => ({
+                            resourceId,
+                            question: quiz.question,
+                            options: JSON.stringify(quiz.options),
+                            correctOptionIndex: quiz.correctOptionIndex,
+                            explanation: quiz.explanation,
+                        })),
+                    });
+                }
             });
-        });
+        } catch (dbError) {
+            console.error(`[ProcessText] Database transaction failed for resource ${resourceId}:`, dbError);
+            throw dbError;
+        }
 
         console.log(`[ProcessText] Resource ${resourceId} processed successfully.`);
     } catch (error) {
