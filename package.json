@@ -39,6 +39,7 @@
     "prisma": "^7.9.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "recharts": "^3.10.0",
     "shadcn": "^4.13.1",
     "tailwind-merge": "^3.6.0",
     "telegraf": "^4.16.3",

@@ -16,6 +16,9 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { getDashboardChartData, getCourseProgressData } from "@/app/actions";
+import { LearningBarChart } from "@/components/dashboard/LearningBarChart";
+import { CourseProgressChart } from "@/components/dashboard/CourseProgressChart";
 
 export const dynamic = "force-dynamic";
 
@@ -60,6 +63,11 @@ export default async function DashboardPage() {
     totalFlashcardsQuery,
     recentResourcesQuery,
     activitiesQuery,
+  ]);
+
+  const [resourceChartData, courseProgressData] = await Promise.all([
+    getDashboardChartData(),
+    getCourseProgressData(),
   ]);
 
   // Normalize date format YYYY-MM-DD
@@ -230,6 +238,12 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
+      </div>
+
+      {/* Learning Activity & Course Progress Charts */}
+      <div className="grid gap-6 md:grid-cols-2">
+        <LearningBarChart data={resourceChartData} />
+        <CourseProgressChart data={courseProgressData} />
       </div>
 
       {/* Core Quick Navigation Shortcuts */}
