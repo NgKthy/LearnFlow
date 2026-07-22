@@ -13,7 +13,8 @@ import {
   Settings,
   Sparkles,
   X,
-  Inbox
+  Inbox,
+  Tag
 } from "lucide-react";
 
 export function Sidebar({ onClose }: { onClose?: () => void }) {
@@ -39,6 +40,11 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
       name: "Hòm thư (Inbox)",
       href: "/inbox",
       icon: Inbox,
+    },
+    {
+      name: "Quản lý nhãn",
+      href: "/tags",
+      icon: Tag,
     },
     {
       name: "Lịch học (Routine)",

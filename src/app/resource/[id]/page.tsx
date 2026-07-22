@@ -22,6 +22,7 @@ import {
 import { FlashcardViewer } from "@/components/learning/FlashcardViewer";
 import { QuizViewer } from "@/components/learning/QuizViewer";
 import { RetryButton } from "@/components/learning/RetryButton";
+import { Editor } from "@/components/notes/Editor";
 
 interface PageProps {
     params: Promise<{
@@ -42,6 +43,7 @@ export default async function ResourceDetailPage({
             tags: true,
             flashcards: true,
             quizQuestions: true,
+            note: true,
         },
     });
 
@@ -223,6 +225,10 @@ export default async function ResourceDetailPage({
                         Quiz
                     </TabsTrigger>
 
+                    <TabsTrigger value="notes">
+                        📝 Ghi chép
+                    </TabsTrigger>
+
                 </TabsList>
 
                 <TabsContent value="flashcards">
@@ -241,6 +247,13 @@ export default async function ResourceDetailPage({
                         }
                     />
 
+                </TabsContent>
+
+                <TabsContent value="notes">
+                    <Editor
+                        resourceId={resource.id}
+                        initialContent={resource.note?.content || ""}
+                    />
                 </TabsContent>
 
             </Tabs>

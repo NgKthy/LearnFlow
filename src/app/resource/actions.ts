@@ -81,3 +81,34 @@ export async function retryProcessing(resourceId: string) {
 
     return { success: true };
 }
+
+/**
+ * Action: Create or update a learning note for a resource (Autosave)
+ */
+export async function saveNote(resourceId: string, content: string) {
+    if (!resourceId) {
+        throw new Error("Resource ID is required");
+    }
+
+    const resource = await prisma.resource.findUnique({
+        where: { id: resourceId },
+    });
+
+    if (!resource) {
+        throw new Error("Resource not found");
+    }
+
+    const note = await prisma.note.upsert({
+        where: { resourceId },
+        update: {
+            content,
+        },
+        create: {
+            resourceId,
+            content,
+        },
+    });
+
+    revalidatePath(`/resource/${resourceId}`);
+    return { success: true, note };
+}

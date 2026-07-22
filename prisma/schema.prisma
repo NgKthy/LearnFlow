@@ -39,6 +39,7 @@ model Resource {
   flashcards     Flashcard[]
   quizQuestions  QuizQuestion[]
   routines       Routine[]
+  note           Note?
 
   @@index([courseId])
 }
@@ -144,4 +145,14 @@ model Routine {
 
   @@index([courseId])
   @@index([resourceId])
+}
+
+model Note {
+  id          String   @id @default(uuid())
+  content     String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  resourceId  String   @unique
+  resource    Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
 }
