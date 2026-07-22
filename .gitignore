@@ -43,3 +43,8 @@ coverage/
 
 # Cache
 .cache/
+
+# AI editor folders
+.agents/
+.claude/
+.windsurf/

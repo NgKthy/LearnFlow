@@ -2,6 +2,7 @@ import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
 
 import { SummarySchema } from "./schema";
+import { getModel } from "./provider";
 
 /**
  * Generate structured learning summary from plain text.
@@ -9,7 +10,7 @@ import { SummarySchema } from "./schema";
 export async function generateSummary(text: string) {
     try {
         const { object } = await generateObject({
-            model: google("gemini-1.5-flash"),
+            model: getModel(),
             schema: SummarySchema,
 
             system: `

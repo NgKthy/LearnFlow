@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-
+import { Button } from "@/components/ui/button";
 import { ResourceCard } from "@/components/resource/ResourceCard";
 
 export default async function LibraryPage() {
@@ -21,15 +22,23 @@ export default async function LibraryPage() {
 
         <section className="space-y-8">
 
-            <div>
+            <div className="flex items-center justify-between">
 
-                <h1 className="text-3xl font-bold">
-                    📚 Thư viện
-                </h1>
+                <div>
 
-                <p className="text-muted-foreground">
-                    Tất cả tài liệu đã lưu
-                </p>
+                    <h1 className="text-3xl font-bold">
+                        📚 Thư viện
+                    </h1>
+
+                    <p className="text-muted-foreground">
+                        Tất cả tài liệu đã lưu
+                    </p>
+
+                </div>
+
+                <Button render={<Link href="/upload" />}>
+                    ➕ Thêm tài liệu
+                </Button>
 
             </div>
 

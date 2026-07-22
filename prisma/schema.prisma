@@ -21,6 +21,7 @@ model Resource {
   source      String
   type        String
   status      String   @default("INBOX")
+  content     String?  @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
