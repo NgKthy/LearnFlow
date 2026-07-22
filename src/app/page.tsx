@@ -110,33 +110,32 @@ export default async function DashboardPage() {
   }
 
   return (
-    <main className="container mx-auto space-y-10 p-4 sm:p-6 lg:p-8">
+    <main className="space-y-8 max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 font-sans leading-relaxed text-[#1F1F1F]">
       
-      {/* Visual Welcome Banner */}
-      <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 p-8 shadow-2xl">
-        <div className="absolute right-0 top-0 -mr-16 -mt-16 h-80 w-80 rounded-full bg-indigo-500/10 blur-3xl"></div>
-        <div className="absolute left-1/3 bottom-0 -mb-16 h-40 w-40 rounded-full bg-violet-500/5 blur-3xl"></div>
-
+      {/* Coursera-Inspired Light Welcome Banner */}
+      <div className="relative overflow-hidden rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50/50 via-indigo-50/30 to-white p-6 md:p-8 shadow-sm">
         <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-400">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-[#0056D2]">
                 <Sparkles className="h-3.5 w-3.5" />
               </span>
-              <span className="text-xs font-semibold tracking-widest text-indigo-400 uppercase">Dashboard</span>
+              <span className="text-[10px] font-extrabold tracking-widest text-[#0056D2] uppercase">
+                Bảng điều khiển
+              </span>
             </div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
               Tổng quan học tập
             </h1>
-            <p className="text-slate-400 max-w-xl text-sm leading-relaxed">
+            <p className="text-slate-500 max-w-xl text-xs sm:text-sm leading-relaxed">
               Chào mừng bạn trở lại! Hãy theo dõi tiến độ tích lũy kiến thức, ôn luyện bộ thẻ ghi nhớ thông minh và tham gia trắc nghiệm củng cố.
             </p>
           </div>
-          <div className="flex shrink-0 gap-3">
-            <Button asChild className="rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/20">
+          <div className="flex shrink-0">
+            <Button asChild className="rounded-lg bg-[#0056D2] hover:bg-[#00419e] text-white shadow-sm font-semibold text-xs py-2 px-4">
               <Link href="/upload">
                 <Plus className="mr-1.5 h-4 w-4" />
-                Thêm tài liệu
+                Thêm tài liệu mới
               </Link>
             </Button>
           </div>
@@ -144,41 +143,45 @@ export default async function DashboardPage() {
       </div>
 
       {/* Stats Dashboard Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         
         {/* Total Ingested Resources */}
-        <Card className="relative overflow-hidden border-white/5 bg-slate-900/40 shadow-lg hover:bg-slate-900/60 transition-all duration-300">
+        <Card className="border border-slate-200 bg-white shadow-sm rounded-xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-bold tracking-wider text-slate-400 uppercase">Tài liệu đã lưu</CardTitle>
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-400">
+            <CardTitle className="text-[10px] font-extrabold tracking-wider text-slate-500 uppercase">
+              Tài liệu đã lưu
+            </CardTitle>
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-[#0056D2]">
               <BookOpen className="h-4 w-4" />
             </span>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-extrabold text-white">{totalResources}</div>
-            <p className="mt-2 text-xs text-slate-500">Tài liệu trong thư viện cá nhân.</p>
+            <div className="text-3xl font-extrabold text-slate-900">{totalResources}</div>
+            <p className="mt-1.5 text-xs text-slate-400 font-semibold">Tài liệu trong thư viện cá nhân.</p>
           </CardContent>
         </Card>
 
         {/* Due Flashcards */}
-        <Card className="relative overflow-hidden border-white/5 bg-slate-900/40 shadow-lg hover:bg-slate-900/60 transition-all duration-300">
+        <Card className="border border-slate-200 bg-white shadow-sm rounded-xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-bold tracking-wider text-slate-400 uppercase">Cần ôn hôm nay</CardTitle>
-            <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${dueFlashcards > 0 ? "bg-amber-500/10 text-amber-400" : "bg-slate-500/10 text-slate-400"}`}>
+            <CardTitle className="text-[10px] font-extrabold tracking-wider text-slate-500 uppercase">
+              Cần ôn hôm nay
+            </CardTitle>
+            <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${dueFlashcards > 0 ? "bg-amber-50 text-amber-600" : "bg-slate-50 text-slate-400"}`}>
               <Brain className="h-4 w-4" />
             </span>
           </CardHeader>
           <CardContent>
-            <div className={`text-4xl font-extrabold ${dueFlashcards > 0 ? "text-amber-400" : "text-white"}`}>
+            <div className={`text-3xl font-extrabold ${dueFlashcards > 0 ? "text-amber-600" : "text-slate-900"}`}>
               {dueFlashcards}
             </div>
-            <div className="mt-4">
+            <div className="mt-3">
               {dueFlashcards > 0 ? (
-                <Button asChild size="sm" className="w-full rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-medium text-xs">
+                <Button asChild size="sm" className="w-full rounded-lg bg-[#0056D2] hover:bg-[#00419e] text-white font-semibold text-xs py-1.5">
                   <Link href="/review">🔥 Ôn tập ngay</Link>
                 </Button>
               ) : (
-                <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold bg-emerald-500/10 py-1.5 px-3 rounded-lg border border-emerald-500/20">
+                <div className="flex items-center gap-1.5 text-xs text-emerald-600 font-bold bg-emerald-50 py-1.5 px-3 rounded-lg border border-emerald-100">
                   <CheckCircle2 className="h-3.5 w-3.5" />
                   <span>Hoàn thành mục tiêu!</span>
                 </div>
@@ -188,37 +191,41 @@ export default async function DashboardPage() {
         </Card>
 
         {/* Quiz Accuracy */}
-        <Card className="relative overflow-hidden border-white/5 bg-slate-900/40 shadow-lg hover:bg-slate-900/60 transition-all duration-300">
+        <Card className="border border-slate-200 bg-white shadow-sm rounded-xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-bold tracking-wider text-slate-400 uppercase">Chính xác Quiz</CardTitle>
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/10 text-violet-400">
+            <CardTitle className="text-[10px] font-extrabold tracking-wider text-slate-500 uppercase">
+              Chính xác Quiz
+            </CardTitle>
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-50 text-purple-600">
               <Award className="h-4 w-4" />
             </span>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-extrabold text-white">
+            <div className="text-3xl font-extrabold text-slate-900">
               {quizCompletions.length > 0 ? `${avgAccuracy}%` : "--"}
             </div>
-            <p className="mt-2 text-xs text-slate-500">
+            <p className="mt-1.5 text-xs text-slate-400 font-semibold">
               {quizCompletions.length > 0 ? `Trung bình qua ${quizCompletions.length} lượt thi.` : "Chưa thực hiện trắc nghiệm."}
             </p>
           </CardContent>
         </Card>
 
         {/* Learning Streak */}
-        <Card className="relative overflow-hidden border-white/5 bg-slate-900/40 shadow-lg hover:bg-slate-900/60 transition-all duration-300">
+        <Card className="border border-slate-200 bg-white shadow-sm rounded-xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-bold tracking-wider text-slate-400 uppercase">Chuỗi học tập</CardTitle>
-            <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${streak > 0 ? "bg-orange-500/10 text-orange-400" : "bg-slate-500/10 text-slate-400"}`}>
+            <CardTitle className="text-[10px] font-extrabold tracking-wider text-slate-500 uppercase">
+              Chuỗi học tập
+            </CardTitle>
+            <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${streak > 0 ? "bg-orange-50 text-orange-600" : "bg-slate-50 text-slate-400"}`}>
               <Flame className="h-4 w-4" />
             </span>
           </CardHeader>
           <CardContent>
-            <div className={`text-4xl font-extrabold ${streak > 0 ? "text-orange-400" : "text-white"}`}>
-              {streak} <span className="text-lg font-medium text-slate-500">ngày</span>
+            <div className={`text-3xl font-extrabold ${streak > 0 ? "text-orange-600" : "text-slate-900"}`}>
+              {streak} <span className="text-xs font-semibold text-slate-400">ngày</span>
             </div>
-            <p className="mt-2 text-xs text-slate-500">
-              {streak > 0 ? "Hãy tiếp tục duy trì ngọn lửa!" : "Bắt đầu học ngay hôm nay!"}
+            <p className="mt-1.5 text-xs text-slate-400 font-semibold">
+              {streak > 0 ? "Hãy duy trì thói quen học tập!" : "Bắt đầu học ngay hôm nay!"}
             </p>
           </CardContent>
         </Card>
@@ -227,41 +234,41 @@ export default async function DashboardPage() {
 
       {/* Core Quick Navigation Shortcuts */}
       <div className="grid gap-4 sm:grid-cols-3">
-        <Link href="/upload" className="group flex items-center justify-between rounded-2xl border border-white/5 bg-slate-900/30 p-4 hover:bg-slate-900/60 transition-all">
+        <Link href="/upload" className="group flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 hover:border-blue-300 hover:shadow-sm transition-all shadow-sm">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-400 group-hover:scale-110 transition-transform">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-[#0056D2] group-hover:scale-105 transition-transform">
               <Plus className="h-5 w-5" />
             </span>
             <div>
-              <span className="text-sm font-bold text-white block">Ingest tài liệu</span>
-              <span className="text-xs text-slate-500">Tải lên PDF/Link YouTube</span>
+              <span className="text-xs font-bold text-slate-800 group-hover:text-[#0056D2] block">Ingest tài liệu</span>
+              <span className="text-[10px] text-slate-400 font-semibold">Tải lên PDF / Link YouTube</span>
             </div>
           </div>
-          <ChevronRight className="h-4 w-4 text-slate-600 group-hover:text-white transition-colors" />
+          <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-[#0056D2] transition-colors" />
         </Link>
-        <Link href="/flashcards" className="group flex items-center justify-between rounded-2xl border border-white/5 bg-slate-900/30 p-4 hover:bg-slate-900/60 transition-all">
+        <Link href="/flashcards" className="group flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 hover:border-blue-300 hover:shadow-sm transition-all shadow-sm">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400 group-hover:scale-110 transition-transform">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-600 group-hover:scale-105 transition-transform">
               <Brain className="h-5 w-5" />
             </span>
             <div>
-              <span className="text-sm font-bold text-white block">Thẻ ghi nhớ</span>
-              <span className="text-xs text-slate-500">Xem và luyện tập tất cả thẻ</span>
+              <span className="text-xs font-bold text-slate-800 group-hover:text-[#0056D2] block">Thẻ ghi nhớ</span>
+              <span className="text-[10px] text-slate-400 font-semibold">Xem và luyện tập tất cả thẻ</span>
             </div>
           </div>
-          <ChevronRight className="h-4 w-4 text-slate-600 group-hover:text-white transition-colors" />
+          <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-[#0056D2] transition-colors" />
         </Link>
-        <Link href="/quiz" className="group flex items-center justify-between rounded-2xl border border-white/5 bg-slate-900/30 p-4 hover:bg-slate-900/60 transition-all">
+        <Link href="/quiz" className="group flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 hover:border-blue-300 hover:shadow-sm transition-all shadow-sm">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10 text-violet-400 group-hover:scale-110 transition-transform">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600 group-hover:scale-105 transition-transform">
               <GraduationCap className="h-5 w-5" />
             </span>
             <div>
-              <span className="text-sm font-bold text-white block">Bài trắc nghiệm</span>
-              <span className="text-xs text-slate-500">Khảo sát kiến thức qua bài thi</span>
+              <span className="text-xs font-bold text-slate-800 group-hover:text-[#0056D2] block">Bài trắc nghiệm</span>
+              <span className="text-[10px] text-slate-400 font-semibold">Khảo sát kiến thức qua bài thi</span>
             </div>
           </div>
-          <ChevronRight className="h-4 w-4 text-slate-600 group-hover:text-white transition-colors" />
+          <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-[#0056D2] transition-colors" />
         </Link>
       </div>
 
@@ -269,13 +276,15 @@ export default async function DashboardPage() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-slate-800 text-slate-400">
+            <span className="flex h-6 w-6 items-center justify-center rounded bg-slate-100 text-slate-600">
               <Clock className="h-3.5 w-3.5" />
             </span>
-            <h2 className="text-2xl font-bold tracking-tight text-white">Tài liệu mới lưu gần đây</h2>
+            <h2 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900">
+              Tài liệu mới lưu gần đây
+            </h2>
           </div>
 
-          <Button asChild variant="ghost" className="text-xs text-indigo-400 hover:text-indigo-300">
+          <Button asChild variant="ghost" className="text-xs text-[#0056D2] hover:text-[#00419e] hover:bg-blue-50/50">
             <Link href="/library" className="flex items-center gap-1">
               Xem tất cả thư viện
               <ChevronRight className="h-3.5 w-3.5" />
@@ -284,9 +293,9 @@ export default async function DashboardPage() {
         </div>
 
         {recentResources.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-white/10 p-12 text-center bg-slate-900/10">
-            <p className="text-slate-400 font-medium">Chưa có tài liệu học tập nào được lưu.</p>
-            <p className="mt-1 text-xs text-slate-600">Hãy thêm một vài tài liệu PDF bằng cách bấm nút "Thêm tài liệu" ở trên.</p>
+          <div className="rounded-xl border border-dashed border-slate-200 p-12 text-center bg-slate-50">
+            <p className="text-slate-500 font-bold text-xs">Chưa có tài liệu học tập nào được lưu.</p>
+            <p className="mt-1 text-[10px] text-slate-400 font-semibold">Hãy thêm một vài tài liệu PDF bằng cách bấm nút "Thêm tài liệu" ở trên.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
