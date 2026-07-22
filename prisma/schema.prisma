@@ -33,9 +33,13 @@ model Resource {
   ingestionLogs IngestionLog[]
 
   /// ===== Relations =====
+  courseId       String?
+  course         Course?      @relation(fields: [courseId], references: [id], onDelete: SetNull)
   tags           Tag[]
   flashcards     Flashcard[]
   quizQuestions  QuizQuestion[]
+
+  @@index([courseId])
 }
 
 model IngestionLog {
@@ -108,4 +112,15 @@ model QuizQuestion {
   resource            Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
 
   @@index([resourceId])
+}
+
+model Course {
+  id          String     @id @default(uuid())
+  title       String
+  description String?
+  status      String     @default("ACTIVE") // DRAFT, ACTIVE, ARCHIVED
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  resources   Resource[]
 }
