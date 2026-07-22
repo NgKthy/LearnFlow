@@ -13,6 +13,7 @@ export async function processAndSaveResource(
     platform: string,
     onProgress?: (step: string, message: string) => void
 ): Promise<void> {
+    console.time("Learning Pipeline");
     try {
         // -------------------------------------------------------------------------
         // Mark as processing
@@ -58,7 +59,9 @@ export async function processAndSaveResource(
         console.log(
             `[Learning] Resource ${resourceId} processed successfully.`
         );
+        console.timeEnd("Learning Pipeline");
     } catch (error) {
+        console.timeEnd("Learning Pipeline");
         onProgress?.(
             "error",
             "❌ Có lỗi xảy ra trong quá trình xử lý."

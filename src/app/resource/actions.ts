@@ -32,22 +32,33 @@ export async function retryProcessing(resourceId: string) {
     revalidatePath(`/resource/${resourceId}`);
 
     // 2. Run the processing asynchronously
+    console.time("Learning Pipeline");
     if (resource.content && resource.content.trim()) {
         // For documents that have text content (like uploaded PDFs)
-        processTextAndSave(resourceId, resource.content).catch((err) => {
-            console.error(
-                `[RetryAction] Background processTextAndSave failed for resource ${resourceId}:`,
-                err
-            );
-        });
+        processTextAndSave(resourceId, resource.content)
+            .then(() => {
+                console.timeEnd("Learning Pipeline");
+            })
+            .catch((err) => {
+                console.timeEnd("Learning Pipeline");
+                console.error(
+                    `[RetryAction] Background processTextAndSave failed for resource ${resourceId}:`,
+                    err
+                );
+            });
     } else if (resource.url) {
         // For link-based resources (YouTube, articles, etc.)
-        processAndSaveResource(resourceId, resource.url, resource.source).catch((err) => {
-            console.error(
-                `[RetryAction] Background processAndSaveResource failed for resource ${resourceId}:`,
-                err
-            );
-        });
+        processAndSaveResource(resourceId, resource.url, resource.source)
+            .then(() => {
+                console.timeEnd("Learning Pipeline");
+            })
+            .catch((err) => {
+                console.timeEnd("Learning Pipeline");
+                console.error(
+                    `[RetryAction] Background processAndSaveResource failed for resource ${resourceId}:`,
+                    err
+                );
+            });
     } else {
         // Fail early if there is neither content nor url
         await prisma.resource.update({
