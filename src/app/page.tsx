@@ -16,9 +16,10 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { getDashboardChartData, getCourseProgressData } from "@/app/actions";
+import { getDashboardChartData, getCourseProgressData, getTodayTasksData } from "@/app/actions";
 import { LearningBarChart } from "@/components/dashboard/LearningBarChart";
 import { CourseProgressChart } from "@/components/dashboard/CourseProgressChart";
+import { TodayTasks } from "@/components/dashboard/TodayTasks";
 
 export const dynamic = "force-dynamic";
 
@@ -65,9 +66,10 @@ export default async function DashboardPage() {
     activitiesQuery,
   ]);
 
-  const [resourceChartData, courseProgressData] = await Promise.all([
+  const [resourceChartData, courseProgressData, todayTasksData] = await Promise.all([
     getDashboardChartData(),
     getCourseProgressData(),
+    getTodayTasksData(),
   ]);
 
   // Normalize date format YYYY-MM-DD
@@ -149,6 +151,12 @@ export default async function DashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Today Tasks Panel */}
+      <TodayTasks 
+        todayRoutines={todayTasksData.todayRoutines} 
+        inboxCount={todayTasksData.inboxCount} 
+      />
 
       {/* Stats Dashboard Grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

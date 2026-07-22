@@ -14,7 +14,8 @@ import {
   Sparkles,
   X,
   Inbox,
-  Tag
+  Tag,
+  Route
 } from "lucide-react";
 
 export function Sidebar({ onClose }: { onClose?: () => void }) {
@@ -30,6 +31,11 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
       name: "Khóa học",
       href: "/courses",
       icon: FolderOpen,
+    },
+    {
+      name: "Lộ trình",
+      href: "/paths",
+      icon: Route,
     },
     {
       name: "Thư viện",

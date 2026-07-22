@@ -87,3 +87,70 @@ export async function getCourseProgressData(): Promise<CourseProgressData[]> {
     };
   });
 }
+
+export interface TodayTasksData {
+  todayRoutines: {
+    id: string;
+    title: string;
+    description: string | null;
+    time: string;
+    courseTitle: string | null;
+    resourceTitle: string | null;
+  }[];
+  inboxCount: number;
+}
+
+/**
+ * Fetch routines active for today and pending Inbox resource count
+ */
+export async function getTodayTasksData(): Promise<TodayTasksData> {
+  const daysOfWeek = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+  const todayIndex = new Date().getDay();
+  const todayName = daysOfWeek[todayIndex];
+
+  // Fetch active routines
+  const routines = await prisma.routine.findMany({
+    where: {
+      active: true,
+    },
+    include: {
+      course: {
+        select: { title: true },
+      },
+      resource: {
+        select: { title: true },
+      },
+    },
+    orderBy: {
+      time: "asc",
+    },
+  });
+
+  // Filter routines by today's day of week
+  const todayRoutines = routines
+    .filter((routine) => {
+      if (!routine.dayOfWeek) return true; // null or empty means daily
+      const days = routine.dayOfWeek.toUpperCase().split(",").map(d => d.trim());
+      return days.includes(todayName);
+    })
+    .map((routine) => ({
+      id: routine.id,
+      title: routine.title,
+      description: routine.description,
+      time: routine.time,
+      courseTitle: routine.course?.title || null,
+      resourceTitle: routine.resource?.title || null,
+    }));
+
+  // Count inbox resources
+  const inboxCount = await prisma.resource.count({
+    where: {
+      status: "INBOX",
+    },
+  });
+
+  return {
+    todayRoutines,
+    inboxCount,
+  };
+}
