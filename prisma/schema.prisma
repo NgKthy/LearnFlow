@@ -55,6 +55,9 @@ model Activity {
   action    String
   payload   String?
   createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([action])
 }
 
 model Tag {
@@ -87,6 +90,7 @@ model Flashcard {
   resourceId  String
   resource    Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
   @@index([nextReview])
+  @@index([resourceId])
 }
 
 model QuizQuestion {
@@ -102,4 +106,6 @@ model QuizQuestion {
 
   resourceId          String
   resource            Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+
+  @@index([resourceId])
 }
