@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Resource {
+  id          String   @id @default(uuid())
+  title       String
+  url         String
+  description String?
+  thumbnail   String?
+  author      String?
+  source      String
+  type        String
+  status      String   @default("INBOX")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  /// ===== AI Generated =====
+  summary                String?
+  difficulty             String?
+  estimatedReadingTime   Int?
+  
+  ingestionLogs IngestionLog[]
+
+  /// ===== Relations =====
+  tags           Tag[]
+  flashcards     Flashcard[]
+  quizQuestions  QuizQuestion[]
+}
+
+model IngestionLog {
+  id              String    @id @default(uuid())
+  platform        String
+  rawMessage      String
+  extractedUrl    String
+  metadataFetched Boolean   @default(false)
+  success         Boolean   @default(true)
+  resourceId      String?
+  resource        Resource? @relation(fields: [resourceId], references: [id], onDelete: SetNull)
+  createdAt       DateTime  @default(now())
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  action    String
+  payload   String?
+  createdAt DateTime @default(now())
+}
+
+model Tag {
+  id   String @id @default(cuid())
+  name String @unique
+
+  resources Resource[]
+}
+
+model Flashcard {
+  id          String   @id @default(cuid())
+  question    String
+  answer      String
+  hint        String?
+
+  // ==========================
+  // Spaced Repetition (SM-2)
+  // ==========================
+
+  easeFactor  Float    @default(2.5)
+
+  interval    Int      @default(0)
+
+  repetition  Int      @default(0)
+
+  nextReview  DateTime @default(now())
+
+  createdAt   DateTime @default(now())
+
+  resourceId  String
+  resource    Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  @@index([nextReview])
+}
+
+model QuizQuestion {
+  id                  String @id @default(cuid())
+
+  question            String
+
+  options             String
+
+  correctOptionIndex  Int
+
+  explanation         String
+
+  resourceId          String
+  resource            Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+}
