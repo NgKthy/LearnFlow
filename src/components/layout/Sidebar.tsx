@@ -5,22 +5,29 @@ import { usePathname } from "next/navigation";
 import { 
   LayoutDashboard, 
   BookOpen, 
-  UploadCloud, 
+  FolderOpen, 
   Brain, 
   GraduationCap, 
-  Flame, 
+  Calendar, 
+  Clock,
   Settings,
-  Sparkles
+  Sparkles,
+  X
 } from "lucide-react";
 
-export function Sidebar() {
+export function Sidebar({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
 
   const navItems = [
     {
-      name: "Dashboard",
+      name: "Tổng quan",
       href: "/",
       icon: LayoutDashboard,
+    },
+    {
+      name: "Khóa học",
+      href: "/courses",
+      icon: FolderOpen,
     },
     {
       name: "Thư viện",
@@ -28,9 +35,9 @@ export function Sidebar() {
       icon: BookOpen,
     },
     {
-      name: "Tải lên",
-      href: "/upload",
-      icon: UploadCloud,
+      name: "Lịch học (Routine)",
+      href: "/routine",
+      icon: Calendar,
     },
     {
       name: "Flashcards",
@@ -45,7 +52,7 @@ export function Sidebar() {
     {
       name: "Lịch ôn tập",
       href: "/review",
-      icon: Flame,
+      icon: Clock,
     },
     {
       name: "Cài đặt",
@@ -55,20 +62,31 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 border-r border-white/5 bg-slate-950 h-screen sticky top-0 flex flex-col justify-between text-slate-300">
+    <aside className="w-64 border-r border-slate-200 bg-white h-screen sticky top-0 flex flex-col justify-between text-slate-700 shadow-sm shrink-0">
       <div>
-        {/* Brand Logo */}
-        <div className="p-6 border-b border-white/5 flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-500 text-white shadow-lg shadow-indigo-500/30">
-            <Sparkles className="h-4.5 w-4.5 fill-current" />
-          </span>
-          <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
-            LearnFlow
-          </span>
+        {/* Brand Logo - Coursera Rebrand */}
+        <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0056D2] text-white shadow-sm">
+              <Sparkles className="h-4.5 w-4.5 fill-current" />
+            </span>
+            <span className="font-extrabold text-xl tracking-tight text-[#0056D2]">
+              LearnFlow
+            </span>
+          </div>
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 md:hidden"
+              aria-label="Đóng menu"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          )}
         </div>
 
         {/* Navigation Links */}
-        <nav className="mt-6 space-y-1.5 px-3">
+        <nav className="mt-6 space-y-1 px-3">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
@@ -77,19 +95,20 @@ export function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group relative flex items-center gap-3.5 rounded-xl px-4 py-3 text-sm font-semibold tracking-wide transition-all duration-200 ${
+                onClick={onClose}
+                className={`group relative flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all ${
                   isActive
-                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/10"
-                    : "hover:bg-white/5 hover:text-white text-slate-400"
+                    ? "bg-[#EEF4FD] text-[#0056D2]"
+                    : "hover:bg-slate-50 hover:text-slate-900 text-slate-600"
                 }`}
               >
-                {/* Active strip indicator */}
+                {/* Active left indicator strip */}
                 {isActive && (
-                  <span className="absolute left-0 top-1/3 h-1/3 w-1 rounded-r-full bg-white"></span>
+                  <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#0056D2] rounded-r-md"></span>
                 )}
 
                 <Icon className={`h-4.5 w-4.5 shrink-0 transition-transform group-hover:scale-105 ${
-                  isActive ? "text-white" : "text-slate-500 group-hover:text-slate-300"
+                  isActive ? "text-[#0056D2]" : "text-slate-400 group-hover:text-slate-600"
                 }`} />
 
                 {item.name}
@@ -99,10 +118,10 @@ export function Sidebar() {
         </nav>
       </div>
 
-      {/* Sidebar Footer info */}
-      <div className="p-4 border-t border-white/5 text-center">
-        <span className="text-[10px] font-bold tracking-widest text-slate-600 uppercase">
-          LearnFlow v1.0.0
+      {/* Sidebar Footer Info */}
+      <div className="p-4 border-t border-slate-100 text-center bg-slate-50/50">
+        <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">
+          LearnFlow v1.1.0
         </span>
       </div>
     </aside>
