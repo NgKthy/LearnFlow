@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 import { Lightbulb } from "lucide-react";
+import { saveQuizActivityAction } from "@/actions/save-quiz-activity";
 
 interface QuizQuestion {
     id: string;
@@ -14,6 +15,7 @@ interface QuizQuestion {
     options: string;
     correctOptionIndex: number;
     explanation: string;
+    resourceId: string;
 }
 
 interface QuizViewerProps {
@@ -57,6 +59,11 @@ export function QuizViewer({
     const handleNext = () => {
         if (isLastQuestion) {
             setIsFinished(true);
+            const firstQuestion = quizQuestions[0];
+            if (firstQuestion?.resourceId) {
+                saveQuizActivityAction(firstQuestion.resourceId, score, quizQuestions.length)
+                    .catch(console.error);
+            }
             return;
         }
 

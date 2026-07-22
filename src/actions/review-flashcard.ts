@@ -59,6 +59,17 @@ export async function reviewFlashcardAction(
             },
         });
 
+        // Log learning activity
+        await prisma.activity.create({
+            data: {
+                action: "FLASHCARD_REVIEWED",
+                payload: JSON.stringify({
+                    flashcardId: flashcard.id,
+                    quality,
+                }),
+            },
+        });
+
         // Resource pages
         revalidatePath("/library");
         revalidatePath(`/resource/${flashcard.resourceId}`);

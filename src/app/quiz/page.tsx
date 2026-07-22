@@ -19,6 +19,7 @@ export default async function QuizPage() {
                     options: true,
                     correctOptionIndex: true,
                     explanation: true,
+                    resourceId: true,
                 },
             },
         },

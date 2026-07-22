@@ -25,9 +25,10 @@ This file tracks the implementation progress of Stage 2 (MVP) for the Personal L
 - [x] **Task 3.2:** Create `app/quiz/quiz-client.tsx` with a visual dashboard of quizzes and study session overlays.
 - [x] **Task 3.3:** Create `app/quiz/page.tsx` as a server component to fetch quiz questions using Prisma.
 
-### ⚪ Sprint 4 – Dashboard
-- [ ] **Task 4.1:** Retrieve summary metrics from database: Streak count, resource counts, total due flashcards, average quiz accuracy.
-- [ ] **Task 4.2:** Design a clean, visual statistics dashboard.
+### 🟢 Sprint 4 – Dashboard (Priority #4)
+- [x] **Task 4.1:** Log quiz activity completions (`QUIZ_COMPLETED`) and flashcard reviews (`FLASHCARD_REVIEWED`) inside database activities.
+- [x] **Task 4.2:** Implement daily learning streak calculation (handling calendar days offset) and average quiz accuracy computations.
+- [x] **Task 4.3:** Redesign the landing page `app/page.tsx` with a premium stats dashboard and shortcut cards.
 
 ### ⚪ Sprint 5 – Navigation
 - [ ] **Task 5.1:** Update global Layout sidebar/header with links: Dashboard, Library, Upload, Flashcards, Quiz, Review, Settings.
