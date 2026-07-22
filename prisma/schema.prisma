@@ -156,3 +156,10 @@ model Note {
   resourceId  String   @unique
   resource    Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
 }
+
+model Setting {
+  key       String   @id
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
