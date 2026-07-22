@@ -1,22 +1,20 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { getPaginatedResources } from "@/repositories/resource";
 import { Button } from "@/components/ui/button";
 import { ResourceCard } from "@/components/resource/ResourceCard";
+import { Pagination } from "@/components/library/Pagination";
 
-export default async function LibraryPage() {
+interface PageProps {
+    searchParams: Promise<{
+        page?: string;
+    }>;
+}
 
-    const resources =
-        await prisma.resource.findMany({
-
-            include: {
-                tags: true,
-            },
-
-            orderBy: {
-                createdAt: "desc",
-            },
-
-        });
+export default async function LibraryPage({ searchParams }: PageProps) {
+    const resolvedParams = await searchParams;
+    const currentPage = parseInt(resolvedParams.page || "1", 10);
+    
+    const { resources, total, totalPages } = await getPaginatedResources(currentPage, 12);
 
     return (
 
@@ -42,26 +40,39 @@ export default async function LibraryPage() {
 
             </div>
 
-            <div
-                className="
-                    grid
-                    grid-cols-1
-                    md:grid-cols-2
-                    lg:grid-cols-3
-                    gap-6
-                "
-            >
+            {resources.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-slate-200 p-12 text-center bg-slate-50">
+                    <p className="text-slate-600 font-medium">Chưa có tài liệu nào trong thư viện.</p>
+                    <p className="mt-1 text-xs text-slate-500">Hãy thêm tài liệu để bắt đầu học tập.</p>
+                </div>
+            ) : (
+                <>
+                    <div
+                        className="
+                            grid
+                            grid-cols-1
+                            md:grid-cols-2
+                            lg:grid-cols-3
+                            gap-6
+                        "
+                    >
 
-                {resources.map(resource => (
+                        {resources.map(resource => (
 
-                    <ResourceCard
-                        key={resource.id}
-                        resource={resource}
-                    />
+                            <ResourceCard
+                                key={resource.id}
+                                resource={resource}
+                            />
 
-                ))}
+                        ))}
 
-            </div>
+                    </div>
+
+                    <div className="pt-4">
+                        <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/library" />
+                    </div>
+                </>
+            )}
 
         </section>
 

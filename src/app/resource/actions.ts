@@ -4,16 +4,19 @@ import { prisma } from "@/lib/prisma";
 import { processTextAndSave } from "@/services/learning/process-text";
 import { processAndSaveResource } from "@/services/learning/process-resource";
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 
 /**
  * Triggers the AI learning pipeline for a previously FAILED resource.
  * Runs the processing asynchronously and returns immediately.
  */
 export async function retryProcessing(resourceId: string) {
+    // 1. Validate input presence
     if (!resourceId) {
         throw new Error("Resource ID is required");
     }
 
+    // 2. Validate Resource exists in DB
     const resource = await prisma.resource.findUnique({
         where: { id: resourceId },
     });
@@ -22,50 +25,58 @@ export async function retryProcessing(resourceId: string) {
         throw new Error("Resource not found");
     }
 
-    // 1. Update status to PROCESSING to display loading UI
+    // 3. Validate Resource has retryable content or source url
+    const hasContent = resource.content && resource.content.trim();
+    const hasUrl = !!resource.url;
+
+    if (!hasContent && !hasUrl) {
+        await prisma.resource.update({
+            where: { id: resourceId },
+            data: { status: "FAILED" },
+        });
+        throw new Error("Không thể thực hiện lại: Tài nguyên không có nội dung văn bản hoặc URL nguồn.");
+    }
+
+    // 4. Update status to PROCESSING to show loading spinner on client
     await prisma.resource.update({
         where: { id: resourceId },
         data: { status: "PROCESSING" },
     });
 
-    // Clear Next.js cache for the resource page
+    // Clear route cache immediately
     revalidatePath(`/resource/${resourceId}`);
 
-    // 2. Run the processing asynchronously
-    console.time("Learning Pipeline");
-    if (resource.content && resource.content.trim()) {
+    // 5. Trigger processing in serverless-safe background context using after
+    if (hasContent) {
         // For documents that have text content (like uploaded PDFs)
-        processTextAndSave(resourceId, resource.content)
-            .then(() => {
+        after(async () => {
+            console.time("Learning Pipeline");
+            try {
+                await processTextAndSave(resourceId, resource.content!);
                 console.timeEnd("Learning Pipeline");
-            })
-            .catch((err) => {
+            } catch (err) {
                 console.timeEnd("Learning Pipeline");
                 console.error(
                     `[RetryAction] Background processTextAndSave failed for resource ${resourceId}:`,
                     err
                 );
-            });
-    } else if (resource.url) {
+            }
+        });
+    } else {
         // For link-based resources (YouTube, articles, etc.)
-        processAndSaveResource(resourceId, resource.url, resource.source)
-            .then(() => {
+        after(async () => {
+            console.time("Learning Pipeline");
+            try {
+                await processAndSaveResource(resourceId, resource.url, resource.source);
                 console.timeEnd("Learning Pipeline");
-            })
-            .catch((err) => {
+            } catch (err) {
                 console.timeEnd("Learning Pipeline");
                 console.error(
                     `[RetryAction] Background processAndSaveResource failed for resource ${resourceId}:`,
                     err
                 );
-            });
-    } else {
-        // Fail early if there is neither content nor url
-        await prisma.resource.update({
-            where: { id: resourceId },
-            data: { status: "FAILED" },
+            }
         });
-        throw new Error("Không thể thực hiện lại: Resource không có nội dung văn bản và URL nguồn.");
     }
 
     return { success: true };

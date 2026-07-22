@@ -109,3 +109,33 @@ export async function saveIngestedResource(
         throw error;
     }
 }
+
+/**
+ * Fetch resources from the database with offset-based pagination.
+ */
+export async function getPaginatedResources(page: number = 1, limit: number = 12) {
+    const take = limit;
+    const skip = (page - 1) * limit;
+
+    const [resources, total] = await Promise.all([
+        prisma.resource.findMany({
+            include: {
+                tags: true,
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+            skip,
+            take,
+        }),
+        prisma.resource.count(),
+    ]);
+
+    return {
+        resources,
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+    };
+}

@@ -23,18 +23,19 @@ export async function processTextAndSave(
 
         // 2. Call AI pipeline workflow inside a try-catch block with timers
         let result;
-        console.time("AI Pipeline");
+        console.time("AI Generation");
         try {
             console.log(`[AI Pipeline] Starting generation for resource ${resourceId}`);
             result = await processContentWorkflow(text);
-            console.timeEnd("AI Pipeline");
+            console.timeEnd("AI Generation");
         } catch (aiError) {
-            console.timeEnd("AI Pipeline");
+            console.timeEnd("AI Generation");
             console.error(`[AI Pipeline] Generation failed for resource ${resourceId}:`, aiError);
             throw aiError;
         }
 
         // 3. Persist everything to PostgreSQL inside an interactive transaction
+        console.time("DB Transaction");
         try {
             await prisma.$transaction(async (tx) => {
                 // Update resource content, status, metadata & tags
@@ -111,7 +112,9 @@ export async function processTextAndSave(
                     });
                 }
             });
+            console.timeEnd("DB Transaction");
         } catch (dbError) {
+            console.timeEnd("DB Transaction");
             console.error(`[ProcessText] Database transaction failed for resource ${resourceId}:`, dbError);
             throw dbError;
         }
