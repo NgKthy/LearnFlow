@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Clock3, ExternalLink, Loader2, RefreshCw } from "lucide-react";
+import { Clock3, ExternalLink, Loader2, RefreshCw, AlertCircle } from "lucide-react";
 
 import { prisma } from "@/lib/prisma";
 
@@ -21,6 +21,7 @@ import {
 
 import { FlashcardViewer } from "@/components/learning/FlashcardViewer";
 import { QuizViewer } from "@/components/learning/QuizViewer";
+import { RetryButton } from "@/components/learning/RetryButton";
 
 interface PageProps {
     params: Promise<{
@@ -69,6 +70,27 @@ export default async function ResourceDetailPage({
                             Trang sẽ tự động cập nhật sau mỗi 5 giây...
                         </p>
                     </div>
+                </Card>
+            </div>
+        );
+    }
+
+    if (resource.status === "FAILED") {
+        return (
+            <div className="mx-auto max-w-lg py-16 px-4">
+                <Card className="backdrop-blur-md bg-white/40 dark:bg-black/30 border border-white/20 shadow-2xl rounded-3xl p-8 text-center flex flex-col items-center justify-center space-y-6">
+                    <div className="p-4 bg-destructive/10 rounded-full border border-destructive/20 text-destructive">
+                        <AlertCircle className="h-10 w-10" />
+                    </div>
+                    <div className="space-y-2">
+                        <h3 className="font-bold text-xl text-foreground">
+                            Xử lý học liệu thất bại
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                            Đã xảy ra lỗi trong quá trình AI phân tích tài liệu và sinh tài liệu ôn tập (Tóm tắt, Flashcards, Quiz).
+                        </p>
+                    </div>
+                    <RetryButton resourceId={resource.id} />
                 </Card>
             </div>
         );
