@@ -11,11 +11,20 @@ It utilizes a **Telegram Bot** as a frictionless ingestion pipeline, **Gemini AI
 *   📥 **Telegram Ingestion Bot:** Instantly forward links or share resources with your Telegram Bot. The ingestion pipeline extracts URLs, fetches metadata (Title, Source, Thumbnail), and saves them directly to your Inbox.
 *   🧠 **AI-Powered Processing Pipeline:** Auto-generates comprehensive summaries, difficulty levels, estimated reading times, and assigns taxonomy tags using Gemini AI.
 *   📚 **Interactive Learning Zone:** 
-    *   **Courses & Paths:** Group related resources together into structured courses and learning paths.
+    *   **Courses & Paths:** Group related resources together into structured courses, and group courses sequentially into learning paths (`/paths`) with aggregate progress tracking.
+    *   **3 View Modes (Courses):** Toggle course resource lists between Grid View (with thumbnails), Table View (with metadata columns), and Board View (interactive Kanban drag-and-drop).
     *   **Library:** Search and filter all saved resources by source (YouTube, Medium, etc.) and tags.
+*   📅 **Today Tasks & Routines:** A main dashboard widget (`TodayTasks`) listing active routines scheduled for today and outstanding Inbox resource warning cards.
+*   📊 **Visual Recharts Analytics:** Visual data insights using Recharts on the dashboard:
+    *   `LearningBarChart` showing resources saved per day over the last 7 days.
+    *   `CourseProgressChart` showing active course progress percentages.
 *   🔄 **SM-2 Spaced Repetition Flashcards:** AI-extracted flashcards automatically scheduled for reviews using the SuperMemo-2 algorithm (1 to 5 quality rating).
 *   ✍️ **Interactive Quizzes:** Challenge yourself with AI-generated multiple-choice quizzes complete with real-time checks and detailed rationales.
-*   🎨 **Premium Glassmorphic UI:** Clean, responsive, and gorgeous dashboard built with Tailwind CSS and `@base-ui/react` primitives.
+*   📝 **TipTap Rich Text Notes:** Headless rich text editor (`Editor.tsx`) integrated into resources detail tabs with a 1.5s debounced autosave.
+*   🏷️ **Taxonomy Tag Manager:** Complete tags dashboard (`/tags`) showcasing tag resource counts, with support for merging duplicate tags.
+*   💼 **Opportunities Manager:** Dedicated tracker (`/opportunities`) for cataloging, organizing, and updating statuses of job vacancies, internship JDs, and scholarship postings.
+*   🎨 **Coursera Light UI:** Clean, responsive, and gorgeous academic dashboard interface using Coursera light colors (`#F8F9FA` background, `#FFFFFF` cards, flat thin `#E1E1E1` borders, and `#0056D2` primary highlights).
+*   💾 **Self-Service Backups:** A utility to export the entire database (minus sensitive API Keys) in JSON format directly from the Settings page.
 
 ---
 
@@ -25,8 +34,10 @@ It utilizes a **Telegram Bot** as a frictionless ingestion pipeline, **Gemini AI
 *   **Database ORM:** [Prisma 7](https://www.prisma.io/)
 *   **Database Provider:** [PostgreSQL](https://www.postgresql.org/) (e.g. Neon, Supabase)
 *   **Deployment Platform:** [Vercel](https://vercel.com/)
-*   **Styling & UI:** Tailwind CSS, Shadcn UI, and [@base-ui/react](https://base-ui.com/)
+*   **Styling & UI:** Tailwind CSS, Shadcn UI
+*   **Visualizations:** [Recharts](https://recharts.org/)
 *   **AI Engine:** [Google Generative AI (Gemini SDK)](https://ai.google.dev/)
+*   **Editor:** [TipTap](https://tiptap.dev/)
 *   **Telegram Bot:** `telegraf`
 
 ---
