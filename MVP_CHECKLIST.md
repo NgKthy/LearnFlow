@@ -20,10 +20,10 @@ This file tracks the implementation progress of Stage 2 (MVP) for the Personal L
 - [x] **Task 2.2:** Tidy up, resolve unused warnings, and add chevron/arrow key navigation to the `FlashcardViewer.tsx` component.
 - [x] **Task 2.3:** Wire review logic (SM-2 updates) to submit results to database actions, and integrate the session study overlay.
 
-### ⚪ Sprint 3 – Trang Quiz
-- [ ] **Task 3.1:** Create `/quiz` page showing a list of resource-based quizzes.
-- [ ] **Task 3.2:** Retrieve quiz questions from PostgreSQL database.
-- [ ] **Task 3.3:** Integrate `QuizViewer.tsx` on the page for interactive playing.
+### 🟢 Sprint 3 – Trang Quiz (Priority #3)
+- [x] **Task 3.1:** Fix the final question "Hoàn thành" button bug and style options for dark mode in `QuizViewer.tsx`.
+- [x] **Task 3.2:** Create `app/quiz/quiz-client.tsx` with a visual dashboard of quizzes and study session overlays.
+- [x] **Task 3.3:** Create `app/quiz/page.tsx` as a server component to fetch quiz questions using Prisma.
 
 ### ⚪ Sprint 4 – Dashboard
 - [ ] **Task 4.1:** Retrieve summary metrics from database: Streak count, resource counts, total due flashcards, average quiz accuracy.

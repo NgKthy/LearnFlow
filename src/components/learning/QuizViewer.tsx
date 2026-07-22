@@ -205,39 +205,24 @@ export function QuizViewer({
         `;
 
                     if (!isSubmitted) {
-
                         optionClass +=
                             selectedOption === index
-                                ? " border-primary bg-primary/10"
-                                : " border-border hover:bg-accent";
+                                ? " border-indigo-500 bg-indigo-500/10 text-indigo-400"
+                                : " border-white/10 bg-slate-900/40 text-slate-300 hover:bg-slate-900/80 hover:border-white/20";
 
                     } else {
 
                         if (isCorrect) {
 
-                            optionClass +=
-                                `
-                border-green-600
-                bg-green-50
-                text-green-700
-                `;
+                            optionClass += " border-emerald-500/50 bg-emerald-500/10 text-emerald-400";
 
                         } else if (isWrongSelection) {
 
-                            optionClass +=
-                                `
-                border-red-600
-                bg-red-50
-                text-red-700
-                `;
+                            optionClass += " border-red-500/50 bg-red-500/10 text-red-400";
 
                         } else {
 
-                            optionClass +=
-                                `
-                opacity-50
-                pointer-events-none
-                `;
+                            optionClass += " opacity-40 pointer-events-none";
 
                         }
 
@@ -322,7 +307,7 @@ export function QuizViewer({
 
                 ) : isLastQuestion ? (
 
-                    <Button disabled>
+                    <Button onClick={handleNext}>
                         Hoàn thành
                     </Button>
 
