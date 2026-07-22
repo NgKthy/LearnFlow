@@ -30,8 +30,8 @@ This file tracks the implementation progress of Stage 2 (MVP) for the Personal L
 - [x] **Task 4.2:** Implement daily learning streak calculation (handling calendar days offset) and average quiz accuracy computations.
 - [x] **Task 4.3:** Redesign the landing page `app/page.tsx` with a premium stats dashboard and shortcut cards.
 
-### ⚪ Sprint 5 – Navigation
-- [ ] **Task 5.1:** Update global Layout sidebar/header with links: Dashboard, Library, Upload, Flashcards, Quiz, Review, Settings.
+### 🟢 Sprint 5 – Navigation (Priority #5)
+- [x] **Task 5.1:** Convert Sidebar component to Client mode, implement usePathname active state highlights, and map all links (Dashboard, Library, Upload, Flashcards, Quiz, Review, Settings) with Lucide icons.
 
 ### ⚪ Sprint 6 – Telegram Bot
 - [ ] **Task 6.1:** Connect Telegram PDF uploads to the ingestion pipeline and save to PostgreSQL (using the shared in-memory text service).
