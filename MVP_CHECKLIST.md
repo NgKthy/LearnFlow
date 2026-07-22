@@ -15,10 +15,10 @@ This file tracks the implementation progress of Stage 2 (MVP) for the Personal L
 - [x] **Task 1.6:** Wire client-side upload to Server Action, showing step-by-step progress and redirecting to the resource details page.
 - [x] **Task 1.7:** Add a "Thêm tài liệu" (Add Resource) button in the Library page linking to `/upload`.
 
-### ⚪ Sprint 2 – Trang Flashcards
-- [ ] **Task 2.1:** Create `app/flashcards/page.tsx` displaying due flashcards.
-- [ ] **Task 2.2:** Tidy up and reuse the `FlashcardViewer.tsx` component.
-- [ ] **Task 2.3:** Wire review logic (SM-2 updates) to submit results to database actions.
+### 🟢 Sprint 2 – Trang Flashcards (Priority #2)
+- [x] **Task 2.1:** Create `app/flashcards/page.tsx` displaying due flashcards, study grid, and searchable list.
+- [x] **Task 2.2:** Tidy up, resolve unused warnings, and add chevron/arrow key navigation to the `FlashcardViewer.tsx` component.
+- [x] **Task 2.3:** Wire review logic (SM-2 updates) to submit results to database actions, and integrate the session study overlay.
 
 ### ⚪ Sprint 3 – Trang Quiz
 - [ ] **Task 3.1:** Create `/quiz` page showing a list of resource-based quizzes.

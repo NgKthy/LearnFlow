@@ -140,13 +140,17 @@ export function FlashcardViewer({
             switch (e.code) {
                 case "Space":
                     e.preventDefault();
+                    flipCard();
+                    break;
 
-                    if (!isFlipped) {
-                        setIsFlipped(true);
-                    } else {
-                        flipCard();
-                    }
+                case "ArrowLeft":
+                    e.preventDefault();
+                    goPrev();
+                    break;
 
+                case "ArrowRight":
+                    e.preventDefault();
+                    goNext();
                     break;
 
                 case "Digit1":
@@ -203,6 +207,8 @@ export function FlashcardViewer({
         handleReview,
         isFlipped,
         isReviewing,
+        goPrev,
+        goNext,
     ]);
 
     if (flashcards.length === 0) {
@@ -253,114 +259,126 @@ export function FlashcardViewer({
 
             </div>
 
-            {/* Card */}
-
-            <div
-                className="
-                    perspective-1000
-                    w-full
-                    max-w-xl
-                    cursor-pointer
-                "
-                onClick={flipCard}
-            >
+            {/* Card & Navigation Container */}
+            <div className="flex w-full items-center justify-center gap-4">
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={goPrev}
+                    disabled={currentIndex === 0}
+                    className="h-12 w-12 rounded-full shrink-0"
+                >
+                    <ChevronLeft className="h-6 w-6" />
+                </Button>
 
                 <div
-                    className={`
-                        relative
-                        h-80
+                    className="
+                        perspective-1000
                         w-full
-                        transform-style-3d
-                        transition-transform
-                        duration-700
-                        ${isFlipped
-                            ? "rotate-y-180"
-                            : ""
-                        }
-                    `}
+                        max-w-xl
+                        cursor-pointer
+                    "
+                    onClick={flipCard}
                 >
 
-                    {/* Front */}
-
                     <div
-                        className="
-                            backface-hidden
-                            absolute
-                            inset-0
-                            flex
-                            items-center
-                            justify-center
-                            rounded-2xl
-                            border
-                            bg-card
-                            p-8
-                            shadow-lg
-                        "
+                        className={`
+                            relative
+                            h-80
+                            w-full
+                            transform-style-3d
+                            transition-transform
+                            duration-700
+                            ${isFlipped
+                                ? "rotate-y-180"
+                                : ""
+                            }
+                        `}
                     >
 
-                        <div className="space-y-6 text-center">
+                        {/* Front */}
 
-                            <p className="text-xl font-semibold leading-8">
+                        <div
+                            className="
+                                backface-hidden
+                                absolute
+                                inset-0
+                                flex
+                                items-center
+                                justify-center
+                                rounded-2xl
+                                border
+                                bg-card
+                                p-8
+                                shadow-lg
+                            "
+                        >
 
-                                {current.question}
+                            <div className="space-y-6 text-center">
 
-                            </p>
+                                <p className="text-xl font-semibold leading-8">
 
-                            <p className="text-sm text-muted-foreground">
+                                    {current.question}
 
-                                Click hoặc nhấn
-                                Space để xem đáp
-                                án
+                                </p>
 
-                            </p>
+                                <p className="text-sm text-muted-foreground">
+
+                                    Click hoặc nhấn
+                                    Space để xem đáp
+                                    án
+
+                                </p>
+
+                            </div>
 
                         </div>
 
-                    </div>
+                        {/* Back */}
 
-                    {/* Back */}
+                        <div
+                            className="
+                                backface-hidden
+                                rotate-y-180
+                                absolute
+                                inset-0
+                                flex
+                                items-center
+                                justify-center
+                                rounded-2xl
+                                border
+                                bg-primary
+                                p-8
+                                text-primary-foreground
+                                shadow-lg
+                            "
+                        >
 
-                    <div
-                        className="
-                            backface-hidden
-                            rotate-y-180
-                            absolute
-                            inset-0
-                            flex
-                            items-center
-                            justify-center
-                            rounded-2xl
-                            border
-                            bg-primary
-                            p-8
-                            text-primary-foreground
-                            shadow-lg
-                        "
-                    >
+                            <div className="space-y-6 text-center">
 
-                        <div className="space-y-6 text-center">
+                                <p className="text-lg leading-8">
 
-                            <p className="text-lg leading-8">
+                                    {current.answer}
 
-                                {current.answer}
+                                </p>
 
-                            </p>
+                                {current.hint && (
+                                    <div
+                                        className="
+                                            rounded-lg
+                                            bg-white/10
+                                            p-4
+                                            text-sm
+                                        "
+                                    >
+                                        💡{" "}
+                                        {
+                                            current.hint
+                                        }
+                                    </div>
+                                )}
 
-                            {current.hint && (
-                                <div
-                                    className="
-                                        rounded-lg
-                                        bg-white/10
-                                        p-4
-                                        text-sm
-                                    "
-                                >
-                                    💡{" "}
-                                    {
-                                        current.hint
-                                    }
-                                </div>
-                            )}
+                            </div>
 
                         </div>
 
@@ -368,6 +386,15 @@ export function FlashcardViewer({
 
                 </div>
 
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={goNext}
+                    disabled={currentIndex === flashcards.length - 1}
+                    className="h-12 w-12 rounded-full shrink-0"
+                >
+                    <ChevronRight className="h-6 w-6" />
+                </Button>
             </div>
 
             {/* Controls */}
