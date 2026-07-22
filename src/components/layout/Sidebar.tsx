@@ -12,7 +12,8 @@ import {
   Clock,
   Settings,
   Sparkles,
-  X
+  X,
+  Inbox
 } from "lucide-react";
 
 export function Sidebar({ onClose }: { onClose?: () => void }) {
@@ -33,6 +34,11 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
       name: "Thư viện",
       href: "/library",
       icon: BookOpen,
+    },
+    {
+      name: "Hòm thư (Inbox)",
+      href: "/inbox",
+      icon: Inbox,
     },
     {
       name: "Lịch học (Routine)",

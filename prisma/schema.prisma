@@ -38,6 +38,7 @@ model Resource {
   tags           Tag[]
   flashcards     Flashcard[]
   quizQuestions  QuizQuestion[]
+  routines       Routine[]
 
   @@index([courseId])
 }
@@ -123,4 +124,24 @@ model Course {
   updatedAt   DateTime   @updatedAt
 
   resources   Resource[]
+  routines    Routine[]
+}
+
+model Routine {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  time        String   // e.g. "08:00"
+  dayOfWeek   String?  // e.g. "MONDAY,TUESDAY" or null for daily
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  courseId    String?
+  course      Course?  @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  resourceId  String?
+  resource    Resource? @relation(fields: [resourceId], references: [id], onDelete: SetNull)
+
+  @@index([courseId])
+  @@index([resourceId])
 }
