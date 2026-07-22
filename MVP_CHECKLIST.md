@@ -33,5 +33,5 @@ This file tracks the implementation progress of Stage 2 (MVP) for the Personal L
 ### 🟢 Sprint 5 – Navigation (Priority #5)
 - [x] **Task 5.1:** Convert Sidebar component to Client mode, implement usePathname active state highlights, and map all links (Dashboard, Library, Upload, Flashcards, Quiz, Review, Settings) with Lucide icons.
 
-### ⚪ Sprint 6 – Telegram Bot
-- [ ] **Task 6.1:** Connect Telegram PDF uploads to the ingestion pipeline and save to PostgreSQL (using the shared in-memory text service).
+### 🟢 Sprint 6 – Telegram Bot (Priority #6)
+- [x] **Task 6.1:** Handle document uploads in `src/bot/handlers/document.ts`, download PDFs, extract text in-memory, log database entries, and run `processTextAndSave`.

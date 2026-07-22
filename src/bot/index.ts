@@ -5,6 +5,7 @@ console.log("⏳ [2/5] Đang khởi tạo các module...");
 import { Telegraf } from "telegraf";
 import { message } from "telegraf/filters";
 import { handleTextMessage } from "./handlers/message";
+import { handleDocumentMessage } from "./handlers/document";
 
 console.log("⏳ [3/5] Đang kết nối SQLite Database...");
 import { prisma } from "@/lib/prisma";
@@ -14,6 +15,7 @@ if (!token) throw new Error("❌ Không tìm thấy TELEGRAM_BOT_TOKEN");
 
 const bot = new Telegraf(token);
 bot.on(message("text"), handleTextMessage);
+bot.on(message("document"), handleDocumentMessage);
 
 async function bootstrap() {
     try {
