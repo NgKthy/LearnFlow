@@ -34,8 +34,14 @@ export async function uploadPdf(formData: FormData) {
         },
     });
 
-    // 4. Trigger the AI pipeline and database persistence workflow
-    await processTextAndSave(resource.id, result.text);
+    // 4. Trigger the AI pipeline and database persistence workflow asynchronously
+    // to prevent server action gateway timeout (504) on slow AI model responses.
+    processTextAndSave(resource.id, result.text).catch((err) => {
+        console.error(
+            `[UploadAction] Asynchronous background processing failed for resource ${resource.id}:`,
+            err
+        );
+    });
 
     return {
         success: true,

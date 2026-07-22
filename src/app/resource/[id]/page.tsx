@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Clock3, ExternalLink } from "lucide-react";
+import { Clock3, ExternalLink, Loader2, RefreshCw } from "lucide-react";
 
 import { prisma } from "@/lib/prisma";
 
@@ -46,6 +46,32 @@ export default async function ResourceDetailPage({
 
     if (!resource) {
         notFound();
+    }
+
+    if (resource.status === "PROCESSING") {
+        return (
+            <div className="mx-auto max-w-lg py-16 px-4">
+                <meta httpEquiv="refresh" content="5" />
+                <Card className="backdrop-blur-md bg-white/40 dark:bg-black/30 border border-white/20 shadow-2xl rounded-3xl p-8 text-center flex flex-col items-center justify-center space-y-6">
+                    <div className="relative flex items-center justify-center">
+                        <Loader2 className="h-14 w-14 text-primary animate-spin" />
+                        <div className="absolute text-xs font-bold text-primary">AI</div>
+                    </div>
+                    <div className="space-y-2">
+                        <h3 className="font-bold text-xl text-foreground">
+                            Đang phân tích học liệu bằng AI...
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                            Hệ thống đang tóm tắt tài liệu, gắn tag và tự động tạo các câu hỏi ôn tập (Flashcards & Quiz).
+                        </p>
+                        <p className="text-xs text-muted-foreground/80 italic flex items-center justify-center gap-1.5 pt-2">
+                            <RefreshCw className="h-3 w-3 animate-spin text-primary" />
+                            Trang sẽ tự động cập nhật sau mỗi 5 giây...
+                        </p>
+                    </div>
+                </Card>
+            </div>
+        );
     }
 
     return (
