@@ -178,3 +178,14 @@ model Setting {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Opportunity {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  url         String?
+  type        String   // JOB, SCHOLARSHIP
+  status      String   @default("OPEN") // OPEN, APPLIED, CLOSED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

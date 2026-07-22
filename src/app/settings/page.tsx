@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { APIKeyForm } from "@/components/settings/APIKeyForm";
 import { LinkScanner } from "@/components/settings/LinkScanner";
+import { BackupManager } from "@/components/settings/BackupManager";
 import { Settings } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -57,6 +58,8 @@ export default async function SettingsPage() {
           brokenCount={brokenCount}
           brokenLinks={brokenLinks}
         />
+
+        <BackupManager />
       </div>
     </section>
   );
