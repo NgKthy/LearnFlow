@@ -147,8 +147,3 @@ Before committing your code and deploying, complete this checklist:
     vercel --prod
     ```
 
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](file:///c:/Users/asus/Downloads/LearnFlow/personal-lms/LICENSE).
