@@ -22,7 +22,7 @@ export default async function SettingsPage() {
     prisma.setting.findUnique({ where: { key: "LINK_SCAN_RESULTS" } }),
   ]);
 
-  const initialGeminiApiKey = geminiApiKeySetting?.value || "";
+  const initialGeminiApiKey = geminiApiKeySetting?.value ? "••••••••••••••••" : "";
   const lastScanDate = lastScanDateSetting?.value || "";
   const totalScanned = parseInt(totalScannedSetting?.value || "0", 10);
   const brokenCount = parseInt(brokenCountSetting?.value || "0", 10);

@@ -16,7 +16,8 @@ import {
   Inbox,
   Tag,
   Route,
-  Briefcase
+  Briefcase,
+  Award
 } from "lucide-react";
 
 export function Sidebar({ onClose }: { onClose?: () => void }) {
@@ -72,6 +73,11 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
       name: "Lịch ôn tập",
       href: "/review",
       icon: Clock,
+    },
+    {
+      name: "Portfolio",
+      href: "/portfolio",
+      icon: Award,
     },
     {
       name: "Cơ hội",

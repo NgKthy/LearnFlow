@@ -44,33 +44,33 @@
   - [x] Hiển thị thông báo khi hoàn tất và số URL lỗi sau khi quét
 
 ## Epic 3 — System Settings
-- [ ] Task 3.1 — Thiết kế lưu trữ Settings
-  - [ ] Xác nhận schema Settings trong `schema.prisma` và migrate (nếu cần)
-- [ ] Task 3.2 — Server Actions
-  - [ ] Tạo Server Action đọc Settings
-  - [ ] Tạo Server Action cập nhật Settings
-  - [ ] Validate dữ liệu đầu vào và revalidate cache sau khi lưu
-- [ ] Task 3.3 — Settings UI
-  - [ ] Tạo form cấu hình AI và trường nhập Gemini API Key
-  - [ ] Thêm nút Lưu, trạng thái Loading, thông báo thành công/thất bại
-- [ ] Task 3.4 — Security Review
-  - [ ] Không hiển thị toàn bộ API Key sau khi lưu (mask một phần giá trị hoặc show dummy)
-  - [ ] Kiểm tra không ghi API Key vào log
-  - [ ] Kiểm tra quyền truy cập trang Settings theo mô hình người dùng hiện tại
+- [x] Task 3.1 — Thiết kế lưu trữ Settings
+  - [x] Xác nhận schema Settings trong `schema.prisma` và migrate (nếu cần)
+- [x] Task 3.2 — Server Actions
+  - [x] Tạo Server Action đọc Settings
+  - [x] Tạo Server Action cập nhật Settings
+  - [x] Validate dữ liệu đầu vào và revalidate cache sau khi lưu
+- [x] Task 3.3 — Settings UI
+  - [x] Tạo form cấu hình AI và trường nhập Gemini API Key
+  - [x] Thêm nút Lưu, trạng thái Loading, thông báo thành công/thất bại
+- [x] Task 3.4 — Security Review
+  - [x] Không hiển thị toàn bộ API Key sau khi lưu (mask một phần giá trị hoặc show dummy)
+  - [x] Kiểm tra không ghi API Key vào log
+  - [x] Kiểm tra quyền truy cập trang Settings theo mô hình người dùng hiện tại
 
 ## Epic 4 — Portfolio & Shared Links
-- [ ] Task 4.1 — Database
-  - [ ] Thiết kế model `PortfolioItem` với relation tới `Resource` và `userId`
-  - [ ] Tạo migration Prisma và chạy `npx prisma migrate dev`
-  - [ ] Kiểm tra Prisma Client
-- [ ] Task 4.2 — Server Actions
-  - [ ] Tạo Portfolio Server Actions (create, update, delete, toggle public, reorder, validate & revalidate)
-- [ ] Task 4.3 — Portfolio Management UI
-  - [ ] Tạo trang quản lý Portfolio tại `/portfolio`
-  - [ ] Tạo `PortfolioCard` và `PortfolioForm` components
-  - [ ] Thêm công tắc Public/Private và Empty State
-- [ ] Task 4.4 — Public Portfolio
-  - [ ] Tạo route công khai `/portfolio/[userId]`
-  - [ ] Chỉ hiển thị Portfolio Item có `isPublic = true`
-  - [ ] Hiển thị danh sách thành quả học tập và Empty State
-  - [ ] Kiểm tra phản hồi trên desktop và mobile
+- [x] Task 4.1 — Database
+  - [x] Thiết kế model `PortfolioItem` với relation tới `Resource` và `userId`
+  - [x] Tạo migration Prisma và chạy `npx prisma migrate dev`
+  - [x] Kiểm tra Prisma Client
+- [x] Task 4.2 — Server Actions
+  - [x] Tạo Portfolio Server Actions (create, update, delete, toggle public, reorder, validate & revalidate)
+- [x] Task 4.3 — Portfolio Management UI
+  - [x] Tạo trang quản lý Portfolio tại `/portfolio`
+  - [x] Tạo `PortfolioCard` và `PortfolioForm` components
+  - [x] Thêm công tắc Public/Private và Empty State
+- [x] Task 4.4 — Public Portfolio
+  - [x] Tạo route công khai `/portfolio/[userId]`
+  - [x] Chỉ hiển thị Portfolio Item có `isPublic = true`
+  - [x] Hiển thị danh sách thành quả học tập và Empty State
+  - [x] Kiểm tra phản hồi trên desktop và mobile

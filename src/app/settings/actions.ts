@@ -14,16 +14,26 @@ const SettingsInputSchema = z.record(z.string(), z.string());
 export async function saveSettings(settings: Record<string, string>) {
   const validated = SettingsInputSchema.parse(settings);
 
-  // Perform upsert transactions for each key-value pair
-  await prisma.$transaction(
-    Object.entries(validated).map(([key, value]) =>
-      prisma.setting.upsert({
-        where: { key },
-        update: { value: value.trim() },
-        create: { key, value: value.trim() },
-      })
-    )
-  );
+  // Filter out masked placeholders so they are not saved/overwritten in DB
+  const entriesToUpdate = Object.entries(validated).filter(([key, value]) => {
+    if (key === "GEMINI_API_KEY" && value === "••••••••••••••••") {
+      return false;
+    }
+    return true;
+  });
+
+  if (entriesToUpdate.length > 0) {
+    // Perform upsert transactions for each key-value pair
+    await prisma.$transaction(
+      entriesToUpdate.map(([key, value]) =>
+        prisma.setting.upsert({
+          where: { key },
+          update: { value: value.trim() },
+          create: { key, value: value.trim() },
+        })
+      )
+    );
+  }
 
   revalidatePath("/settings");
   return { success: true };

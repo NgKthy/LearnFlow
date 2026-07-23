@@ -3,9 +3,25 @@
 import React, { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
+import { usePathname } from "next/navigation";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Detect public portfolio view (e.g., /portfolio/default or /portfolio/some-user-id)
+  // excluding the admin portfolio page itself (/portfolio)
+  const isPublicPortfolio = pathname ? /^\/portfolio\/[^/]+$/.test(pathname) : false;
+
+  if (isPublicPortfolio) {
+    return (
+      <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto w-full">
+          {children}
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-[#F8F9FA] text-slate-800">
