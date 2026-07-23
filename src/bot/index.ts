@@ -36,7 +36,7 @@ async function bootstrap() {
     console.log(`🤖 Logged in as @${me.username} (${me.first_name})`);
     console.log("🚀 Telegram Bot is running and waiting for messages...");
 
-    await bot.launch({ dropPendingUpdates: true });
+    await bot.launch({ dropPendingUpdates: false });
 
   } catch (error) {
     console.error("❌ Error launching Telegram Bot:", error);
