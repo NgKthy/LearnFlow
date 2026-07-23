@@ -51,10 +51,17 @@ function Button({
   size = "default",
   asChild = false,
   children,
+  render,
   ...props
 }: ButtonProps & VariantProps<typeof buttonVariants>) {
-  if (asChild) {
-    const child = React.Children.only(children) as React.ReactElement<{ className?: string }>
+  let renderElement = render
+
+  if (asChild && children) {
+    renderElement = React.Children.only(children) as React.ReactElement<{ className?: string }>
+  }
+
+  if (renderElement && React.isValidElement(renderElement)) {
+    const child = renderElement as React.ReactElement<{ className?: string }>
     const mergedClassName = cn(
       buttonVariants({ variant, size, className }),
       child.props.className
