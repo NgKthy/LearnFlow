@@ -35,3 +35,22 @@ This file tracks the implementation progress of Stage 2 (MVP) for the Personal L
 
 ### 🟢 Sprint 6 – Telegram Bot (Priority #6)
 - [x] **Task 6.1:** Handle document uploads in `src/bot/handlers/document.ts`, download PDFs, extract text in-memory, log database entries, and run `processTextAndSave`.
+
+### 🟢 Sprint 7 – Accessibility Upgrades (Priority #7)
+- [x] **Task 7.1:** Typography size upgrade audit (replacing low-legibility `text-[9px]` with `text-[10px]` in cards/metadata).
+- [x] **Task 7.2:** Color contrast enhancement to satisfy WCAG AA recommendations (changing `text-slate-400` to `text-slate-500` or `text-slate-600` on light background).
+- [x] **Task 7.3:** Sidebar menu items refactored to support overflow scroll container (`overflow-y-auto`) to avoid viewport cutoff.
+
+### 🟢 Sprint 8 – Link Scanner & Progress Bar (Priority #8)
+- [x] **Task 8.1:** Asynchronous background link scanner database status polling setup (writing percentages and states to database).
+- [x] **Task 8.2:** Progress bar visualization component UI with animated loading status.
+
+### 🟢 Sprint 9 – System Settings (Priority #9)
+- [x] **Task 9.1:** Gemini API key configuration form with save success notifications.
+- [x] **Task 9.2:** Secure API key masking (`••••••••••••••••`) preventing plain text exposure to the client.
+
+### 🟢 Sprint 10 – Portfolio & Shared Links (Priority #10)
+- [x] **Task 10.1:** PortfolioItem Prisma database schema model setup and Neon migration deployment.
+- [x] **Task 10.2:** CRUD operations, visibility toggling, and array ordering Server Actions.
+- [x] **Task 10.3:** Admin portfolio management page (`/portfolio`) with drag-and-drop/swapping cards.
+- [x] **Task 10.4:** Public page `/portfolio/[userId]` only displaying isPublic=true items with a simplified, standalone viewport layout.

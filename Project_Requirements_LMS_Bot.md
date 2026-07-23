@@ -8,7 +8,7 @@
 ## 2. TECH STACK BẮT BUỘC
 - **Frontend & Backend:** Next.js (App Router) để tạo full-stack app (UI và API nằm chung).
 - **Styling:** TailwindCSS, Shadcn UI (đảm bảo UI sạch sẽ, hiện đại, giống các platform học tập lớn).
-- **Database:** SQLite (chạy local, không cần cài server) + Prisma ORM.
+- **Database:** PostgreSQL (Cloud Neon) + Prisma ORM.
 - **Bot Engine:** Telegram Bot API (dùng `telegraf` hoặc `node-telegram-bot-api` chạy chung trên nền server Node.js/Next.js).
 
 ## 3. KIẾN TRÚC & WORKFLOW (CORE LOGIC)
@@ -49,10 +49,10 @@ Giao diện chia làm 2 phần chính: **Sidebar (Menu điều hướng)** và *
 - **Opportunities:** Bảng lưu trữ riêng cho các link dạng cơ hội (Job JD, học bổng, sự kiện).
 
 ### 4.5. Settings (Cài đặt hệ thống)
-- **AI:** Nhập API Key (OpenAI/Gemini) để bật tính năng auto-tagging hoặc auto-summary.
-- **Thiết bị và tiện ích (Device & Utils):** Nút Export/Import database SQLite để backup.
-- **Portfolio & Shared Links:** Nơi gom các link thành quả/dự án cá nhân để xuất ra 1 trang public (optional) hoặc quản lý dễ dàng.
-- **Maintenance (Bảo trì):** Nút bấm chạy script quét database để tìm và đánh dấu các "Broken links" (link đã bị xóa/die).
+- **AI:** Nhập API Key (OpenAI/Gemini) với cơ chế bảo mật Masking đầu vào để bật tính năng auto-tagging hoặc auto-summary.
+- **Thiết bị và tiện ích (Device & Utils):** Hỗ trợ sao lưu và quản trị cấu hình hệ thống.
+- **Portfolio & Shared Links (Hồ sơ năng lực):** Cho phép người dùng gom các link thành quả/dự án cá nhân, sắp xếp thứ tự hiển thị và xuất ra 1 trang public tại `/portfolio/[userId]` với giao diện thu gọn.
+- **Maintenance (Bảo trì):** Chức năng quét liên kết hỏng (Broken link scanner) với thanh tiến trình tải động (progress bar) và cơ chế bất đồng bộ nền.
 
 ## 5. DATABASE SCHEMA YÊU CẦU (Gợi ý Prisma)
 AI cần thiết kế schema gồm tối thiểu các bảng sau (và tự nghĩ thêm các trường cần thiết):
@@ -64,6 +64,7 @@ AI cần thiết kế schema gồm tối thiểu các bảng sau (và tự nghĩ
 - `Flashcard`
 - `Routine` (Lịch trình)
 - `Settings` (Lưu key AI, config)
+- `PortfolioItem` (Gom nhóm thành quả và liên kết với học liệu)
 
 ## 6. HƯỚNG DẪN DÀNH CHO AI (SYSTEM INSTRUCTION)
 - **Luôn tập trung vào Local & Free:** Không đề xuất các dịch vụ cloud tốn phí (như AWS S3, Vercel Postgres, Supabase) trừ khi bắt buộc. Dùng SQLite là ưu tiên tối thượng.
