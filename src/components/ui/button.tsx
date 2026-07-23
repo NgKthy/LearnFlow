@@ -54,14 +54,19 @@ function Button({
   ...props
 }: ButtonProps & VariantProps<typeof buttonVariants>) {
   if (asChild) {
-    const child = React.Children.only(children) as React.ReactElement
+    const child = React.Children.only(children) as React.ReactElement<{ className?: string }>
+    const mergedClassName = cn(
+      buttonVariants({ variant, size, className }),
+      child.props.className
+    )
     return (
       <ButtonPrimitive
         data-slot="button"
-        className={cn(buttonVariants({ variant, size, className }))}
-        render={child}
+        render={React.cloneElement(child, {
+          className: mergedClassName,
+          ...props,
+        } as any)}
         nativeButton={false}
-        {...props}
       />
     )
   }
