@@ -53,7 +53,7 @@ export function PathsPageClient({ paths, courses }: PathsPageClientProps) {
           <div className="flex flex-col items-center justify-center p-12 text-center bg-white border border-slate-200 rounded-xl">
             <Route className="h-8 w-8 text-slate-300 mb-3" />
             <p className="text-slate-600 font-bold text-xs">Chưa có lộ trình học tập nào được tạo</p>
-            <p className="text-slate-400 text-[10px] font-semibold mt-0.5">
+            <p className="text-slate-500 text-[10px] font-semibold mt-0.5">
               Hãy dùng biểu mẫu bên cạnh để kết hợp các khóa học liên quan thành lộ trình chuyên sâu.
             </p>
           </div>

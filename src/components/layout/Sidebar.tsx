@@ -132,7 +132,7 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
                 )}
 
                 <Icon className={`h-4.5 w-4.5 shrink-0 transition-transform group-hover:scale-105 ${
-                  isActive ? "text-[#0056D2]" : "text-slate-400 group-hover:text-slate-600"
+                  isActive ? "text-[#0056D2]" : "text-slate-500 group-hover:text-slate-600"
                 }`} />
 
                 {item.name}
@@ -144,7 +144,7 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
 
       {/* Sidebar Footer Info */}
       <div className="p-4 border-t border-slate-100 text-center bg-slate-50/50">
-        <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">
+        <span className="text-[10px] font-bold tracking-widest text-slate-500 uppercase">
           LearnFlow v1.1.0
         </span>
       </div>

@@ -54,21 +54,21 @@ export function OpportunityCard({ opportunity, onEdit }: OpportunityCardProps) {
     switch (status) {
       case "OPEN":
         return (
-          <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-100 hover:bg-emerald-50 rounded text-[9px] font-bold px-1.5 py-0.5 flex items-center gap-0.5">
+          <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-100 hover:bg-emerald-50 rounded text-[10px] font-bold px-1.5 py-0.5 flex items-center gap-0.5">
             <Clock className="h-2.5 w-2.5" />
             Đang mở (Open)
           </Badge>
         );
       case "APPLIED":
         return (
-          <Badge className="bg-blue-50 text-[#0056D2] border border-blue-100 hover:bg-blue-50 rounded text-[9px] font-bold px-1.5 py-0.5 flex items-center gap-0.5">
+          <Badge className="bg-blue-50 text-[#0056D2] border border-blue-100 hover:bg-blue-50 rounded text-[10px] font-bold px-1.5 py-0.5 flex items-center gap-0.5">
             <CheckCircle className="h-2.5 w-2.5" />
             Đã nộp (Applied)
           </Badge>
         );
       case "CLOSED":
         return (
-          <Badge className="bg-slate-50 text-slate-500 border border-slate-100 hover:bg-slate-50 rounded text-[9px] font-bold px-1.5 py-0.5 flex items-center gap-0.5">
+          <Badge className="bg-slate-50 text-slate-500 border border-slate-100 hover:bg-slate-50 rounded text-[10px] font-bold px-1.5 py-0.5 flex items-center gap-0.5">
             <XCircle className="h-2.5 w-2.5" />
             Đã đóng (Closed)
           </Badge>
@@ -84,12 +84,12 @@ export function OpportunityCard({ opportunity, onEdit }: OpportunityCardProps) {
         <div className="space-y-1.5 min-w-0">
           <div className="flex items-center gap-1.5">
             {opportunity.type === "JOB" ? (
-              <Badge className="bg-indigo-50 text-indigo-700 border border-indigo-100 hover:bg-indigo-50 rounded text-[9px] font-bold px-1.5 py-0.5 flex items-center gap-1">
+              <Badge className="bg-indigo-50 text-indigo-700 border border-indigo-100 hover:bg-indigo-50 rounded text-[10px] font-bold px-1.5 py-0.5 flex items-center gap-1">
                 <Briefcase className="h-2.5 w-2.5" />
                 Việc làm/Thực tập
               </Badge>
             ) : (
-              <Badge className="bg-amber-50 text-amber-700 border border-amber-100 hover:bg-amber-50 rounded text-[9px] font-bold px-1.5 py-0.5 flex items-center gap-1">
+              <Badge className="bg-amber-50 text-amber-700 border border-amber-100 hover:bg-amber-50 rounded text-[10px] font-bold px-1.5 py-0.5 flex items-center gap-1">
                 <GraduationCap className="h-2.5 w-2.5" />
                 Học bổng
               </Badge>

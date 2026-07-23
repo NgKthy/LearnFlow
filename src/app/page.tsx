@@ -173,7 +173,7 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-extrabold text-slate-900">{totalResources}</div>
-            <p className="mt-1.5 text-xs text-slate-400 font-semibold">Tài liệu trong thư viện cá nhân.</p>
+            <p className="mt-1.5 text-xs text-slate-500 font-semibold">Tài liệu trong thư viện cá nhân.</p>
           </CardContent>
         </Card>
 
@@ -220,7 +220,7 @@ export default async function DashboardPage() {
             <div className="text-3xl font-extrabold text-slate-900">
               {quizCompletions.length > 0 ? `${avgAccuracy}%` : "--"}
             </div>
-            <p className="mt-1.5 text-xs text-slate-400 font-semibold">
+            <p className="mt-1.5 text-xs text-slate-500 font-semibold">
               {quizCompletions.length > 0 ? `Trung bình qua ${quizCompletions.length} lượt thi.` : "Chưa thực hiện trắc nghiệm."}
             </p>
           </CardContent>
@@ -238,9 +238,9 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className={`text-3xl font-extrabold ${streak > 0 ? "text-orange-600" : "text-slate-900"}`}>
-              {streak} <span className="text-xs font-semibold text-slate-400">ngày</span>
+              {streak} <span className="text-xs font-semibold text-slate-500">ngày</span>
             </div>
-            <p className="mt-1.5 text-xs text-slate-400 font-semibold">
+            <p className="mt-1.5 text-xs text-slate-500 font-semibold">
               {streak > 0 ? "Hãy duy trì thói quen học tập!" : "Bắt đầu học ngay hôm nay!"}
             </p>
           </CardContent>
@@ -263,7 +263,7 @@ export default async function DashboardPage() {
             </span>
             <div>
               <span className="text-xs font-bold text-slate-800 group-hover:text-[#0056D2] block">Ingest tài liệu</span>
-              <span className="text-[10px] text-slate-400 font-semibold">Tải lên PDF / Link YouTube</span>
+              <span className="text-[10px] text-slate-500 font-semibold">Tải lên PDF / Link YouTube</span>
             </div>
           </div>
           <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-[#0056D2] transition-colors" />
@@ -275,7 +275,7 @@ export default async function DashboardPage() {
             </span>
             <div>
               <span className="text-xs font-bold text-slate-800 group-hover:text-[#0056D2] block">Thẻ ghi nhớ</span>
-              <span className="text-[10px] text-slate-400 font-semibold">Xem và luyện tập tất cả thẻ</span>
+              <span className="text-[10px] text-slate-500 font-semibold">Xem và luyện tập tất cả thẻ</span>
             </div>
           </div>
           <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-[#0056D2] transition-colors" />
@@ -287,7 +287,7 @@ export default async function DashboardPage() {
             </span>
             <div>
               <span className="text-xs font-bold text-slate-800 group-hover:text-[#0056D2] block">Bài trắc nghiệm</span>
-              <span className="text-[10px] text-slate-400 font-semibold">Khảo sát kiến thức qua bài thi</span>
+              <span className="text-[10px] text-slate-500 font-semibold">Khảo sát kiến thức qua bài thi</span>
             </div>
           </div>
           <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-[#0056D2] transition-colors" />
@@ -317,7 +317,7 @@ export default async function DashboardPage() {
         {recentResources.length === 0 ? (
           <div className="rounded-xl border border-dashed border-slate-200 p-12 text-center bg-slate-50">
             <p className="text-slate-500 font-bold text-xs">Chưa có tài liệu học tập nào được lưu.</p>
-            <p className="mt-1 text-[10px] text-slate-400 font-semibold">Hãy thêm một vài tài liệu PDF bằng cách bấm nút "Thêm tài liệu" ở trên.</p>
+            <p className="mt-1 text-[10px] text-slate-500 font-semibold">Hãy thêm một vài tài liệu PDF bằng cách bấm nút "Thêm tài liệu" ở trên.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

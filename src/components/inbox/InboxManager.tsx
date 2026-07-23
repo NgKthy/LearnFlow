@@ -114,7 +114,7 @@ export function InboxManager({ resources, courses }: InboxManagerProps) {
                       <Badge variant="outline" className="text-[10px] uppercase font-semibold py-0.5 px-2 bg-slate-50 text-slate-500">
                         {resource.source}
                       </Badge>
-                      <span className="text-xs font-semibold text-slate-400">
+                      <span className="text-xs font-semibold text-slate-500">
                         Đã nhận: {dayjs(resource.createdAt).format("DD/MM/YYYY")}
                       </span>
                     </div>
@@ -127,7 +127,7 @@ export function InboxManager({ resources, courses }: InboxManagerProps) {
                         href={resource.url} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-[#0056D2] font-medium"
+                        className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-[#0056D2] font-medium"
                       >
                         Chuyển tiếp nguồn link
                         <ExternalLink className="h-3 w-3" />

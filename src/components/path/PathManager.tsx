@@ -175,7 +175,7 @@ export function PathManager({ courses, editingPath, onClearEdit }: PathManagerPr
             </label>
 
             {courses.length === 0 ? (
-              <p className="text-[10px] text-slate-400 font-semibold italic bg-slate-50 border border-slate-100 rounded p-3">
+              <p className="text-[10px] text-slate-500 font-semibold italic bg-slate-50 border border-slate-100 rounded p-3">
                 Không tìm thấy khóa học đang hoạt động nào. Hãy tạo khóa học trước.
               </p>
             ) : (

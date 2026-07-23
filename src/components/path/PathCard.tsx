@@ -70,7 +70,7 @@ export function PathCard({ path, onEdit }: PathCardProps) {
     <Card className="border border-slate-200 bg-white shadow-sm rounded-xl overflow-hidden flex flex-col justify-between">
       <CardHeader className="border-b border-slate-100 py-4 flex flex-row items-start justify-between gap-4">
         <div className="space-y-1.5 min-w-0">
-          <Badge className="bg-blue-50 text-[#0056D2] border border-blue-100 hover:bg-blue-50 rounded text-[9px] font-bold px-1.5 py-0.5 flex items-center gap-1 w-max">
+          <Badge className="bg-blue-50 text-[#0056D2] border border-blue-100 hover:bg-blue-50 rounded text-[10px] font-bold px-1.5 py-0.5 flex items-center gap-1 w-max">
             <Route className="h-3 w-3" />
             Lộ trình học
           </Badge>
@@ -121,7 +121,7 @@ export function PathCard({ path, onEdit }: PathCardProps) {
               style={{ width: `${progress}%` }}
             />
           </div>
-          <div className="flex items-center justify-between text-[9px] text-slate-400 font-semibold">
+          <div className="flex items-center justify-between text-[10px] text-slate-500 font-semibold">
             <span className="flex items-center gap-0.5">
               <Layers className="h-2.5 w-2.5" />
               {path.courses.length} Khóa học
@@ -136,7 +136,7 @@ export function PathCard({ path, onEdit }: PathCardProps) {
         {/* List of Courses inside */}
         {path.courses.length > 0 && (
           <div className="border-t border-slate-100 pt-3 space-y-2">
-            <span className="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider block">
+            <span className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider block">
               Thứ tự các khóa học:
             </span>
             <div className="space-y-1.5 max-h-[120px] overflow-y-auto pr-1">
@@ -148,7 +148,7 @@ export function PathCard({ path, onEdit }: PathCardProps) {
                 return (
                   <div key={course.id} className="flex items-center justify-between gap-3 text-[10px] text-slate-700 bg-slate-50 border border-slate-100 rounded px-2 py-1">
                     <span className="font-bold truncate flex items-center gap-1.5">
-                      <span className="flex h-4 w-4 items-center justify-center bg-slate-200 text-slate-600 rounded-full font-mono text-[9px]">
+                      <span className="flex h-4 w-4 items-center justify-center bg-slate-200 text-slate-600 rounded-full font-mono text-[10px]">
                         {idx + 1}
                       </span>
                       {course.title}

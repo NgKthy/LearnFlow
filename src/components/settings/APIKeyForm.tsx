@@ -92,7 +92,7 @@ export function APIKeyForm({ initialGeminiApiKey }: APIKeyFormProps) {
                 {showKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
             </div>
-            <p className="text-[10px] text-slate-400 font-medium">
+            <p className="text-[10px] text-slate-500 font-medium">
               Khóa API của bạn được lưu an toàn trong cơ sở dữ liệu. Nếu không được đặt, hệ thống sẽ tự động sử dụng biến môi trường mặc định.
             </p>
           </div>

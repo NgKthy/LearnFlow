@@ -221,7 +221,7 @@ export default async function CourseDetailPage({ params, searchParams }: CourseD
                       <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-50 border border-slate-100">
                         <Icon className={`h-4.5 w-4.5 ${resource.source === "YOUTUBE" ? "text-red-500" : "text-[#0056D2]"}`} />
                       </span>
-                      <Badge variant="outline" className={`text-[9px] uppercase font-bold tracking-wider py-0.5 px-2 ${
+                      <Badge variant="outline" className={`text-[10px] uppercase font-bold tracking-wider py-0.5 px-2 ${
                         resource.status === "DONE" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
                         resource.status === "IN_PROGRESS" ? "bg-blue-50 text-blue-700 border-blue-200" :
                         "bg-slate-50 text-slate-700 border-slate-200"

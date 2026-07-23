@@ -111,13 +111,13 @@ export function TodayTasks({ todayRoutines, inboxCount }: TodayTasksProps) {
                     {/* Metadata Badges */}
                     <div className="flex flex-wrap gap-1.5">
                       {routine.courseTitle && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-extrabold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
+                        <span className="inline-flex items-center gap-0.5 text-[10px] font-extrabold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
                           <Folder className="h-2.5 w-2.5" />
                           Khóa học: {routine.courseTitle}
                         </span>
                       )}
                       {routine.resourceTitle && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-extrabold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
+                        <span className="inline-flex items-center gap-0.5 text-[10px] font-extrabold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
                           <BookOpen className="h-2.5 w-2.5" />
                           Học liệu: {routine.resourceTitle}
                         </span>

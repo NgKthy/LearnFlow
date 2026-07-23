@@ -38,7 +38,7 @@ export function OpportunitiesPageClient({ opportunities }: OpportunitiesPageClie
           <div className="flex flex-col items-center justify-center p-12 text-center bg-white border border-slate-200 rounded-xl">
             <Briefcase className="h-8 w-8 text-slate-300 mb-3" />
             <p className="text-slate-600 font-bold text-xs">Chưa có cơ hội học tập/việc làm nào</p>
-            <p className="text-slate-400 text-[10px] font-semibold mt-0.5">
+            <p className="text-slate-500 text-[10px] font-semibold mt-0.5">
               Hãy dùng biểu mẫu bên cạnh để ghi chép và theo dõi trạng thái các vị trí tuyển dụng, học bổng bạn quan tâm.
             </p>
           </div>
