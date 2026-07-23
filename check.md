@@ -25,23 +25,23 @@
   - [x] Kiểm tra màu sắc không phải là tín hiệu duy nhất truyền đạt trạng thái
 
 ## Epic 2 — Link Scanner Progress Bar
-- [ ] Task 2.1 — Chuẩn hóa dữ liệu tiến độ
-  - [ ] Thiết kế cấu trúc trạng thái tiến độ (total, processed, failed, percentage) trong `src/services/maintenance/check-links.ts`
-  - [ ] Cập nhật Scanner để tính toán phần trăm sau mỗi batch trong `src/services/maintenance/check-links.ts`
-  - [ ] Chuẩn hóa kiểu dữ liệu trả về trong `src/services/maintenance/check-links.ts`
-- [ ] Task 2.2 — Đồng bộ tiến độ Backend → Client
-  - [ ] Chọn cơ chế đồng bộ tiến độ (polling định kỳ) và tạo ADR `docs/adr/link-scanner-progress.md`
-  - [ ] Tạo endpoint hoặc Server Action trả về trạng thái hiện tại trong `src/app/settings/actions.ts`
-  - [ ] Trả về processed, total, percentage, status từ Server Action
-- [ ] Task 2.3 — Progress Bar Component
-  - [ ] Tạo `ProgressBar` component trong `src/components/settings/ProgressBar.tsx`
-  - [ ] Hiển thị giá trị phần trăm trong `ProgressBar`
-  - [ ] Hiển thị số URL đã quét / tổng số trong `ProgressBar`
-  - [ ] Thêm trạng thái hoàn thành và trạng thái lỗi trong `ProgressBar`
-- [ ] Task 2.4 — Settings Integration
-  - [ ] Thay `Loader2` bằng `ProgressBar` trong `src/app/settings/page.tsx` / `LinkScanner.tsx`
-  - [ ] Đồng bộ UI theo tiến độ Backend (polling)
-  - [ ] Hiển thị thông báo khi hoàn tất và số URL lỗi sau khi quét
+- [x] Task 2.1 — Chuẩn hóa dữ liệu tiến độ
+  - [x] Thiết kế cấu trúc trạng thái tiến độ (total, processed, failed, percentage) trong `src/services/maintenance/check-links.ts`
+  - [x] Cập nhật Scanner để tính toán phần trăm sau mỗi batch trong `src/services/maintenance/check-links.ts`
+  - [x] Chuẩn hóa kiểu dữ liệu trả về trong `src/services/maintenance/check-links.ts`
+- [x] Task 2.2 — Đồng bộ tiến độ Backend → Client
+  - [x] Chọn cơ chế đồng bộ tiến độ (polling định kỳ) và tạo ADR `docs/adr/link-scanner-progress.md`
+  - [x] Tạo endpoint hoặc Server Action trả về trạng thái hiện tại trong `src/app/settings/actions.ts`
+  - [x] Trả về processed, total, percentage, status từ Server Action
+- [x] Task 2.3 — Progress Bar Component
+  - [x] Tạo `ProgressBar` component trong `src/components/settings/ProgressBar.tsx`
+  - [x] Hiển thị giá trị phần trăm trong `ProgressBar`
+  - [x] Hiển thị số URL đã quét / tổng số trong `ProgressBar`
+  - [x] Thêm trạng thái hoàn thành và trạng thái lỗi trong `ProgressBar`
+- [x] Task 2.4 — Settings Integration
+  - [x] Thay `Loader2` bằng `ProgressBar` trong `src/app/settings/page.tsx` / `LinkScanner.tsx`
+  - [x] Đồng bộ UI theo tiến độ Backend (polling)
+  - [x] Hiển thị thông báo khi hoàn tất và số URL lỗi sau khi quét
 
 ## Epic 3 — System Settings
 - [ ] Task 3.1 — Thiết kế lưu trữ Settings

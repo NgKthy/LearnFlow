@@ -30,35 +30,66 @@ export async function saveSettings(settings: Record<string, string>) {
 }
 
 /**
- * Action: Run the broken link scanner and persist summary metrics in DB
+ * Action: Start the broken link scanner asynchronously in the background
  */
 export async function runLinkScanner() {
-  const scanData = await scanBrokenLinks();
+  // Check if already running
+  const currentStatus = await prisma.setting.findUnique({
+    where: { key: "LINK_SCAN_STATUS" },
+  });
 
-  // Save metrics in DB for display
-  await prisma.$transaction([
-    prisma.setting.upsert({
-      where: { key: "LINK_SCAN_DATE" },
-      update: { value: new Date().toISOString() },
-      create: { key: "LINK_SCAN_DATE", value: new Date().toISOString() },
-    }),
-    prisma.setting.upsert({
-      where: { key: "LINK_SCAN_TOTAL" },
-      update: { value: scanData.scannedCount.toString() },
-      create: { key: "LINK_SCAN_TOTAL", value: scanData.scannedCount.toString() },
-    }),
-    prisma.setting.upsert({
-      where: { key: "LINK_SCAN_BROKEN" },
-      update: { value: scanData.brokenCount.toString() },
-      create: { key: "LINK_SCAN_BROKEN", value: scanData.brokenCount.toString() },
-    }),
-    prisma.setting.upsert({
-      where: { key: "LINK_SCAN_RESULTS" },
-      update: { value: JSON.stringify(scanData.results) },
-      create: { key: "LINK_SCAN_RESULTS", value: JSON.stringify(scanData.results) },
-    }),
+  if (currentStatus?.value === "SCANNING") {
+    return { success: false, error: "Tiến trình quét đang được thực hiện." };
+  }
+
+  // Start the link scanner asynchronously (do not await it)
+  scanBrokenLinks()
+    .then(() => {
+      // Revalidate settings path once complete so user sees final statistics
+      revalidatePath("/settings");
+    })
+    .catch((err) => {
+      console.error("[Background LinkScanner Error]", err);
+    });
+
+  return { success: true };
+}
+
+/**
+ * Action: Get current Link Scanner progress state
+ */
+export async function getLinkScannerProgress() {
+  const [
+    statusSetting,
+    totalSetting,
+    processedSetting,
+    brokenSetting,
+    percentageSetting,
+    resultsSetting,
+  ] = await Promise.all([
+    prisma.setting.findUnique({ where: { key: "LINK_SCAN_STATUS" } }),
+    prisma.setting.findUnique({ where: { key: "LINK_SCAN_TOTAL" } }),
+    prisma.setting.findUnique({ where: { key: "LINK_SCAN_PROCESSED" } }),
+    prisma.setting.findUnique({ where: { key: "LINK_SCAN_BROKEN" } }),
+    prisma.setting.findUnique({ where: { key: "LINK_SCAN_PERCENTAGE" } }),
+    prisma.setting.findUnique({ where: { key: "LINK_SCAN_RESULTS" } }),
   ]);
 
-  revalidatePath("/settings");
-  return { success: true, scanData };
+  let brokenLinks = [];
+  if (resultsSetting?.value) {
+    try {
+      brokenLinks = JSON.parse(resultsSetting.value);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  return {
+    status: statusSetting?.value || "IDLE",
+    total: parseInt(totalSetting?.value || "0", 10),
+    processed: parseInt(processedSetting?.value || "0", 10),
+    failed: parseInt(brokenSetting?.value || "0", 10),
+    percentage: parseInt(percentageSetting?.value || "0", 10),
+    brokenLinks,
+  };
 }
